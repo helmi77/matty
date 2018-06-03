@@ -16,6 +16,7 @@
         <converters:BoolToObjectConverter x:Key="MessageBrushConverter" TrueValue="FloralWhite" FalseValue="White" />
         <converters:BoolToObjectConverter x:Key="MessageAlignConverter" TrueValue="Right" FalseValue="Left" />
         <converters:BoolToObjectConverter x:Key="MessageFlowConverter" TrueValue="RightToLeft" FalseValue="LeftToRight" />
+        <converters:BoolNegationConverter x:Key="NegationConverter" />
     </Page.Resources>
 
     <uwpcontrols:MasterDetailsView ItemsSource="{x:Bind ViewModel.Rooms, Mode=OneWay}"
@@ -42,28 +43,39 @@
                     </Grid.RowDefinitions>
                     <uwpcontrols:TileControl Grid.Row="0"
                                              IsAnimated="False"
+                                             AnimationDuration="40"
                                              ImageSource="ms-appx:///Assets/pattern.png"
                                              ScrollViewerContainer="{Binding ElementName=Scroller}">
-                        <ScrollViewer x:Name="Scroller" HorizontalScrollMode="Disabled">
+                        <ScrollViewer x:Name="Scroller">
                             <ItemsControl ItemsSource="{x:Bind Messages}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="models:Message">
-                                        <StackPanel Orientation="Horizontal" 
-                                                    FlowDirection="{x:Bind IsMine, Converter={StaticResource MessageFlowConverter}}"
-                                                    Margin="10,0,10,0"
-                                                    HorizontalAlignment="{x:Bind IsMine, Converter={StaticResource MessageAlignConverter}}">
-                                            <controls:UserAvatar AvatarUrl="{x:Bind AvatarUrl}"></controls:UserAvatar>
+                                        <RelativePanel Width="Auto" 
+                                                       Margin="10,0,10,0"
+                                                       FlowDirection="{x:Bind IsMine, Converter={StaticResource MessageFlowConverter}}"
+                                                       HorizontalAlignment="{x:Bind IsMine, Converter={StaticResource MessageAlignConverter}}"
+                                                       VerticalAlignment="Center">
+                                            <controls:UserAvatar x:Name="ProfilePicture"
+                                                                 AvatarUrl="{x:Bind AvatarUrl}"
+                                                                 VerticalAlignment="Center"
+                                                                 RelativePanel.AlignVerticalCenterWithPanel="True"
+                                                                 RelativePanel.AlignLeftWithPanel="True"/>
                                             <Border CornerRadius="5"
                                                     Padding="12"
                                                     Margin="10,8"
                                                     BorderThickness="0.5"
-                                                    BorderBrush="DarkGray"
+                                                    BorderBrush="DarkGray" 
+                                                    RelativePanel.RightOf="ProfilePicture"
                                                     Background="{x:Bind IsMine, Converter={StaticResource MessageBrushConverter}}">
                                                 <uwpcontrols:MarkdownTextBlock Text="{x:Bind Text}"
                                                                                MaxWidth="500"
-                                                                               LinkClicked="Markdown_LinkClicked" />
+                                                                               Padding="0" Margin="0"
+                                                                               LinkClicked="Markdown_LinkClicked"
+                                                                               VerticalContentAlignment="Center"
+                                                                               FlowDirection="LeftToRight"
+                                                                               HorizontalContentAlignment="Left" />
                                             </Border>
-                                        </StackPanel>
+                                        </RelativePanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -89,14 +101,10 @@
                         <RichEditBox x:Name="Editor"
                                      Background="White"
                                      Grid.Row="1"
-                                     HorizontalContentAlignment="Stretch"
-                                     HorizontalAlignment="Stretch"
-                                     PlaceholderText="Enter text here"
-                                     TextWrapping="Wrap"
-                                     VerticalContentAlignment="Stretch"                                     
-                                     MinHeight="50"
-                                     MaxHeight="50"
-                                     BorderThickness="0" />
+                                     PlaceholderText="Type your message here"
+                                     TextWrapping="Wrap"                                  
+                                     MinHeight="50" MaxHeight="50"
+                                     BorderThickness="0"/>
                     </Grid>
                 </Grid>
             </DataTemplate>
