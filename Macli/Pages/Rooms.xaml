@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Macli.Views.Models"
     xmlns:controls="using:Macli.Controls"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded">
@@ -59,7 +58,8 @@
                                                                  AvatarUrl="{x:Bind AvatarUrl}"
                                                                  VerticalAlignment="Center"
                                                                  RelativePanel.AlignVerticalCenterWithPanel="True"
-                                                                 RelativePanel.AlignLeftWithPanel="True"/>
+                                                                 RelativePanel.AlignLeftWithPanel="True"
+                                                                 ToolTipService.ToolTip="{x:Bind Sender}"/>
                                             <Border CornerRadius="5"
                                                     Padding="12"
                                                     Margin="10,8"

@@ -16,7 +16,6 @@ namespace Macli.Pages
         public Rooms()
         {
             InitializeComponent();
-
             ViewModel = new RoomViewModel();
         }
 
