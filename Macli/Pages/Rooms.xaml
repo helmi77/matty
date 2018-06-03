@@ -1,0 +1,105 @@
+﻿<Page
+    x:Class="Macli.Pages.Rooms"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:uwpcontrols="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Macli.Views.Models"
+    xmlns:controls="using:Macli.Controls"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded">
+    
+    <Page.Resources>
+        <converters:BoolToObjectConverter x:Key="MessageBrushConverter" TrueValue="FloralWhite" FalseValue="White" />
+        <converters:BoolToObjectConverter x:Key="MessageAlignConverter" TrueValue="Right" FalseValue="Left" />
+        <converters:BoolToObjectConverter x:Key="MessageFlowConverter" TrueValue="RightToLeft" FalseValue="LeftToRight" />
+    </Page.Resources>
+
+    <uwpcontrols:MasterDetailsView ItemsSource="{x:Bind ViewModel.Rooms, Mode=OneWay}"
+                                   BorderBrush="LightGray"
+                                   HorizontalAlignment="Stretch"
+                                   HorizontalContentAlignment="Stretch">
+        <uwpcontrols:MasterDetailsView.ItemTemplate>
+            <DataTemplate x:DataType="models:Room">
+                <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal">
+                    <controls:RoomAvatar AvatarUrl="{x:Bind AvatarUrl}" />
+                    <StackPanel Padding="10" Margin="5,0,0,0" RelativePanel.RightOf="RoomAvatar">
+                        <TextBlock Text="{x:Bind Name}" Style="{ThemeResource SubtitleTextBlockStyle}" />
+                        <TextBlock Text="{x:Bind MessagePreview}" Style="{ThemeResource BodyTextBlockStyle}" Foreground="Gray" />
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+        </uwpcontrols:MasterDetailsView.ItemTemplate>
+        <uwpcontrols:MasterDetailsView.DetailsTemplate>
+            <DataTemplate x:DataType="models:Room">
+                <Grid Background="AntiqueWhite">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <uwpcontrols:TileControl Grid.Row="0"
+                                             IsAnimated="False"
+                                             ImageSource="ms-appx:///Assets/pattern.png"
+                                             ScrollViewerContainer="{Binding ElementName=Scroller}">
+                        <ScrollViewer x:Name="Scroller" HorizontalScrollMode="Disabled">
+                            <ItemsControl ItemsSource="{x:Bind Messages}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Message">
+                                        <StackPanel Orientation="Horizontal" 
+                                                    FlowDirection="{x:Bind IsMine, Converter={StaticResource MessageFlowConverter}}"
+                                                    Margin="10,0,10,0"
+                                                    HorizontalAlignment="{x:Bind IsMine, Converter={StaticResource MessageAlignConverter}}">
+                                            <controls:UserAvatar AvatarUrl="{x:Bind AvatarUrl}"></controls:UserAvatar>
+                                            <Border CornerRadius="5"
+                                                    Padding="12"
+                                                    Margin="10,8"
+                                                    BorderThickness="0.5"
+                                                    BorderBrush="DarkGray"
+                                                    Background="{x:Bind IsMine, Converter={StaticResource MessageBrushConverter}}">
+                                                <uwpcontrols:MarkdownTextBlock Text="{x:Bind Text}"
+                                                                               MaxWidth="500"
+                                                                               LinkClicked="Markdown_LinkClicked" />
+                                            </Border>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </uwpcontrols:TileControl>
+                    <Grid Grid.Row="1"
+                          VerticalAlignment="Bottom"
+                          RelativePanel.AlignBottomWithPanel="True" 
+                          RelativePanel.AlignLeftWithPanel="True" 
+                          RelativePanel.AlignRightWithPanel="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <uwpcontrols:TextToolbar x:Name="Toolbar" 
+                                                 Format="MarkDown" 
+                                                 Grid.Row="0"
+                                                 Background="WhiteSmoke"
+                                                 Editor="{Binding ElementName=Editor}" />
+                        <RichEditBox x:Name="Editor"
+                                     Background="White"
+                                     Grid.Row="1"
+                                     HorizontalContentAlignment="Stretch"
+                                     HorizontalAlignment="Stretch"
+                                     PlaceholderText="Enter text here"
+                                     TextWrapping="Wrap"
+                                     VerticalContentAlignment="Stretch"                                     
+                                     MinHeight="50"
+                                     MaxHeight="50"
+                                     BorderThickness="0" />
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+        </uwpcontrols:MasterDetailsView.DetailsTemplate>
+    </uwpcontrols:MasterDetailsView>
+</Page>

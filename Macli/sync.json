@@ -1,0 +1,2488 @@
+{
+	"next_batch": "s4279_67792_874_7210_6631_4_1_92_1",
+	"device_one_time_keys_count": {},
+	"account_data": {
+		"events": [{
+			"content": {
+				"495185c8-6719-414c-9b63-82476190ab9c": {
+					"content": {
+						"url": "https://scalar.vector.im/api/widgets/id/495185c8-6719-414c-9b63-82476190ab9c/stickers.html",
+						"type": "m.stickerpicker",
+						"name": "Stickerpack"
+					},
+					"type": "m.widget",
+					"sender": "@helmi77:quintumvirat.com",
+					"state_key": "495185c8-6719-414c-9b63-82476190ab9c",
+					"id": "495185c8-6719-414c-9b63-82476190ab9c"
+				}
+			},
+			"type": "m.widgets"
+		}, {
+			"content": {
+				"hideRedactions": true,
+				"theme": "status",
+				"MessageComposerInput.isRichTextEnabled": false,
+				"TagPanel.disableTagPanel": true
+			},
+			"type": "im.vector.web.settings"
+		}, {
+			"content": {
+				"disable": false
+			},
+			"type": "org.matrix.preview_urls"
+		}, {
+			"content": {
+				"@alex:quintumvirat.com": ["!nGtyrDfALWotbghnbT:quintumvirat.com"],
+				"@frisky:quintumvirat.com": ["!lZgdkAbKOJhmWeOOeB:quintumvirat.com"],
+				"@vincent:quintumvirat.com": ["!aMPBrRfIXacqzRzAkN:quintumvirat.com"],
+				"@wurzelmann:quintumvirat.com": ["!dwAtyHHPDNNdtWBbkA:quintumvirat.com"],
+				"@gabriel:quintumvirat.com": ["!VlEbxswoZQQcUctkoq:quintumvirat.com"],
+				"@riot-bot:matrix.org": ["!LGMpUxjRyGfOEtzNBa:quintumvirat.com", "!VSqgidgphuejloVAzm:quintumvirat.com"]
+			},
+			"type": "m.direct"
+		}, {
+			"content": {
+				"device": {},
+				"global": {
+					"content": [{
+						"default": true,
+						"pattern": "helmi77",
+						"enabled": true,
+						"rule_id": ".m.rule.contains_user_name",
+						"actions": ["notify", {
+							"set_tweak": "sound",
+							"value": "default"
+						}, {
+							"set_tweak": "highlight"
+						}]
+					}],
+					"override": [{
+						"default": true,
+						"enabled": false,
+						"conditions": [],
+						"rule_id": ".m.rule.master",
+						"actions": ["dont_notify"]
+					}, {
+						"default": true,
+						"enabled": true,
+						"conditions": [{
+							"pattern": "m.notice",
+							"kind": "event_match",
+							"key": "content.msgtype"
+						}],
+						"rule_id": ".m.rule.suppress_notices",
+						"actions": ["dont_notify"]
+					}, {
+						"default": true,
+						"enabled": true,
+						"conditions": [{
+							"pattern": "m.room.member",
+							"kind": "event_match",
+							"key": "type"
+						}, {
+							"pattern": "invite",
+							"kind": "event_match",
+							"key": "content.membership"
+						}, {
+							"pattern": "@helmi77:quintumvirat.com",
+							"kind": "event_match",
+							"key": "state_key"
+						}],
+						"rule_id": ".m.rule.invite_for_me",
+						"actions": ["notify", {
+							"set_tweak": "sound",
+							"value": "default"
+						}, {
+							"set_tweak": "highlight",
+							"value": false
+						}]
+					}, {
+						"default": true,
+						"enabled": true,
+						"conditions": [{
+							"pattern": "m.room.member",
+							"kind": "event_match",
+							"key": "type"
+						}],
+						"rule_id": ".m.rule.member_event",
+						"actions": ["dont_notify"]
+					}, {
+						"default": true,
+						"enabled": true,
+						"conditions": [{
+							"kind": "contains_display_name"
+						}],
+						"rule_id": ".m.rule.contains_display_name",
+						"actions": ["notify", {
+							"set_tweak": "sound",
+							"value": "default"
+						}, {
+							"set_tweak": "highlight"
+						}]
+					}, {
+						"default": true,
+						"enabled": true,
+						"conditions": [{
+							"pattern": "@room",
+							"kind": "event_match",
+							"key": "content.body"
+						}, {
+							"kind": "sender_notification_permission",
+							"key": "room"
+						}],
+						"rule_id": ".m.rule.roomnotif",
+						"actions": ["notify", {
+							"set_tweak": "highlight",
+							"value": true
+						}]
+					}],
+					"sender": [],
+					"room": [],
+					"underride": [{
+						"default": true,
+						"enabled": true,
+						"conditions": [{
+							"pattern": "m.call.invite",
+							"kind": "event_match",
+							"key": "type"
+						}],
+						"rule_id": ".m.rule.call",
+						"actions": ["notify", {
+							"set_tweak": "sound",
+							"value": "ring"
+						}, {
+							"set_tweak": "highlight",
+							"value": false
+						}]
+					}, {
+						"default": true,
+						"enabled": true,
+						"conditions": [{
+							"kind": "room_member_count",
+							"is": "2"
+						}, {
+							"pattern": "m.room.message",
+							"kind": "event_match",
+							"key": "type"
+						}],
+						"rule_id": ".m.rule.room_one_to_one",
+						"actions": ["notify", {
+							"set_tweak": "sound",
+							"value": "default"
+						}, {
+							"set_tweak": "highlight",
+							"value": false
+						}]
+					}, {
+						"default": true,
+						"enabled": true,
+						"conditions": [{
+							"kind": "room_member_count",
+							"is": "2"
+						}, {
+							"pattern": "m.room.encrypted",
+							"kind": "event_match",
+							"key": "type"
+						}],
+						"rule_id": ".m.rule.encrypted_room_one_to_one",
+						"actions": ["notify", {
+							"set_tweak": "sound",
+							"value": "default"
+						}, {
+							"set_tweak": "highlight",
+							"value": false
+						}]
+					}, {
+						"default": true,
+						"enabled": true,
+						"conditions": [{
+							"pattern": "m.room.message",
+							"kind": "event_match",
+							"key": "type"
+						}],
+						"rule_id": ".m.rule.message",
+						"actions": ["notify", {
+							"set_tweak": "sound",
+							"value": "default"
+						}, {
+							"set_tweak": "highlight",
+							"value": false
+						}]
+					}, {
+						"default": true,
+						"enabled": true,
+						"conditions": [{
+							"pattern": "m.room.encrypted",
+							"kind": "event_match",
+							"key": "type"
+						}],
+						"rule_id": ".m.rule.encrypted",
+						"actions": ["notify", {
+							"set_tweak": "highlight",
+							"value": false
+						}]
+					}]
+				}
+			},
+			"type": "m.push_rules"
+		}]
+	},
+	"to_device": {
+		"events": []
+	},
+	"groups": {
+		"leave": {},
+		"join": {},
+		"invite": {}
+	},
+	"presence": {
+		"events": [{
+			"content": {
+				"currently_active": true,
+				"last_active_ago": 65,
+				"presence": "online"
+			},
+			"type": "m.presence",
+			"sender": "@helmi77:quintumvirat.com"
+		}, {
+			"content": {
+				"currently_active": true,
+				"last_active_ago": 2110,
+				"presence": "online"
+			},
+			"type": "m.presence",
+			"sender": "@wurzelmann:quintumvirat.com"
+		}]
+	},
+	"device_lists": {
+		"changed": [],
+		"left": []
+	},
+	"rooms": {
+		"leave": {},
+		"join": {
+			"!lkrYepAbXtzsoPWpTw:quintumvirat.com": {
+				"unread_notifications": {
+					"highlight_count": 0,
+					"notification_count": 0
+				},
+				"timeline": {
+					"limited": true,
+					"prev_batch": "t222-4268_67792_874_7210_6631_4_1_92_1",
+					"events": [{
+						"origin_server_ts": 1527942792818,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527942792318pXQsE:quintumvirat.com",
+						"unsigned": {
+							"age": 3360819
+						},
+						"content": {
+							"body": "car pool?",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527942939497,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$1527942939319FwKbg:quintumvirat.com",
+						"unsigned": {
+							"age": 3214140
+						},
+						"content": {
+							"body": "Ja noice",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527944064649,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1527944064321onazz:quintumvirat.com",
+						"unsigned": {
+							"age": 2088988
+						},
+						"content": {
+							"body": "wir fahren wsl mit dem mini",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527944077860,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527944077322FgmXO:quintumvirat.com",
+						"unsigned": {
+							"age": 2075777
+						},
+						"content": {
+							"body": "ok, vincent?",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527944127396,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$1527944127323XBIId:quintumvirat.com",
+						"unsigned": {
+							"age": 2026241
+						},
+						"content": {
+							"body": "Ja",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527944187106,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$1527944187324YLGpb:quintumvirat.com",
+						"unsigned": {
+							"age": 1966531
+						},
+						"content": {
+							"body": "Also w\u00fcrde mitfahren",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527944225158,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527944225325kqMBJ:quintumvirat.com",
+						"unsigned": {
+							"age": 1928479
+						},
+						"content": {
+							"body": "ja",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527944301783,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$1527944301326elAzv:quintumvirat.com",
+						"unsigned": {
+							"age": 1851854
+						},
+						"content": {
+							"body": "Reparatur machst du ja erst n\u00e4chste Woche oder?",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527944309866,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527944309327CgdFW:quintumvirat.com",
+						"unsigned": {
+							"age": 1843771
+						},
+						"content": {
+							"body": "erst im juli",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527944327243,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$1527944327328vzMmm:quintumvirat.com",
+						"unsigned": {
+							"age": 1826394
+						},
+						"content": {
+							"body": "Aso",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}]
+				},
+				"state": {
+					"events": [{
+						"origin_server_ts": 1524046409521,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1524046409161OedUl:quintumvirat.com",
+						"unsigned": {
+							"age": 3899744116
+						},
+						"state_key": "",
+						"content": {
+							"join_rule": "invite"
+						},
+						"type": "m.room.join_rules"
+					}, {
+						"origin_server_ts": 1524046492037,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1524046492170YJjLv:quintumvirat.com",
+						"unsigned": {
+							"age": 3899661600
+						},
+						"state_key": "",
+						"content": {
+							"url": "mxc://quintumvirat.com/RZhvPxuCZiFXnfISuqpdIYbg"
+						},
+						"type": "m.room.avatar"
+					}, {
+						"origin_server_ts": 1524046460880,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1524046460168troxi:quintumvirat.com",
+						"unsigned": {
+							"age": 3899692757
+						},
+						"state_key": "",
+						"content": {
+							"name": "Triforce"
+						},
+						"type": "m.room.name"
+					}, {
+						"origin_server_ts": 1524046417161,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1524046417165sLBmE:quintumvirat.com",
+						"unsigned": {
+							"age": 3899736476,
+							"replaces_state": "$1524046409164UcSep:quintumvirat.com"
+						},
+						"state_key": "@helmi77:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/cEPUemPozIMpnuYBcaVudqja",
+							"displayname": "helmi77"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1524046409564,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1524046409162MryJP:quintumvirat.com",
+						"unsigned": {
+							"age": 3899744073
+						},
+						"state_key": "",
+						"content": {
+							"history_visibility": "shared"
+						},
+						"type": "m.room.history_visibility"
+					}, {
+						"origin_server_ts": 1524046409366,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1524046409158jSSBI:quintumvirat.com",
+						"unsigned": {
+							"age": 3899744271
+						},
+						"state_key": "",
+						"content": {
+							"creator": "@wurzelmann:quintumvirat.com"
+						},
+						"type": "m.room.create"
+					}, {
+						"origin_server_ts": 1524046409476,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1524046409160vzsEh:quintumvirat.com",
+						"unsigned": {
+							"age": 3899744161
+						},
+						"state_key": "",
+						"content": {
+							"events_default": 0,
+							"users": {
+								"@wurzelmann:quintumvirat.com": 100,
+								"@helmi77:quintumvirat.com": 100
+							},
+							"state_default": 50,
+							"redact": 50,
+							"ban": 50,
+							"users_default": 0,
+							"events": {
+								"m.room.avatar": 50,
+								"m.room.name": 50,
+								"m.room.canonical_alias": 50,
+								"m.room.history_visibility": 100,
+								"m.room.power_levels": 100
+							},
+							"kick": 50,
+							"invite": 0
+						},
+						"type": "m.room.power_levels"
+					}, {
+						"origin_server_ts": 1524047720205,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$1524047720199FzfRs:quintumvirat.com",
+						"unsigned": {
+							"age": 3898433432,
+							"replaces_state": "$1524046438167LpxHu:quintumvirat.com"
+						},
+						"state_key": "@vincent:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": null,
+							"displayname": "\u0412\u0438\u043d\u0441\u0435\u043d\u0442"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1525162182102,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1525162182123FDVoP:quintumvirat.com",
+						"unsigned": {
+							"age": 2783971535,
+							"replaces_state": "$1524046409159PXLfh:quintumvirat.com"
+						},
+						"state_key": "@wurzelmann:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/ONfXgnpgHkeWVPkozYKPbUIY",
+							"displayname": "wurzelmann"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1524046493369,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1524046493171WJdyo:quintumvirat.com",
+						"unsigned": {
+							"age": 3899660268,
+							"replaces_state": "$1524046460169WTFsC:quintumvirat.com"
+						},
+						"state_key": "",
+						"content": {
+							"disable": true
+						},
+						"type": "org.matrix.room.preview_urls"
+					}, {
+						"origin_server_ts": 1524046409615,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1524046409163QoPwG:quintumvirat.com",
+						"unsigned": {
+							"age": 3899744022
+						},
+						"state_key": "",
+						"content": {
+							"guest_access": "can_join"
+						},
+						"type": "m.room.guest_access"
+					}]
+				},
+				"ephemeral": {
+					"events": [{
+						"content": {
+							"user_ids": []
+						},
+						"type": "m.typing"
+					}, {
+						"content": {
+							"$1527944327328vzMmm:quintumvirat.com": {
+								"m.read": {
+									"@vincent:quintumvirat.com": {
+										"ts": 1527944327341
+									},
+									"@wurzelmann:quintumvirat.com": {
+										"ts": 1527944346923
+									},
+									"@helmi77:quintumvirat.com": {
+										"ts": 1527944339077
+									}
+								}
+							}
+						},
+						"type": "m.receipt"
+					}]
+				},
+				"account_data": {
+					"events": [{
+						"content": {
+							"disable": false
+						},
+						"type": "org.matrix.room.preview_urls"
+					}, {
+						"content": {
+							"event_id": "$1527944327328vzMmm:quintumvirat.com"
+						},
+						"type": "m.fully_read"
+					}]
+				}
+			},
+			"!KswdBxbZbvuNPLWoIH:quintumvirat.com": {
+				"unread_notifications": {
+					"highlight_count": 0,
+					"notification_count": 0
+				},
+				"timeline": {
+					"limited": true,
+					"prev_batch": "t939-4114_67792_874_7210_6631_4_1_92_1",
+					"events": [{
+						"origin_server_ts": 1527872553277,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527872553164vLRiD:quintumvirat.com",
+						"unsigned": {
+							"age": 73600360
+						},
+						"content": {
+							"body": "https://www.youtube.com/watch?v=jR6q6lLBi5c",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527872561001,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527872561165TApse:quintumvirat.com",
+						"unsigned": {
+							"age": 73592636
+						},
+						"content": {
+							"body": "da kann man sich die volle dr\u00f6hnung geben",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527872645587,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527872645166dDJpy:quintumvirat.com",
+						"unsigned": {
+							"age": 73508050
+						},
+						"content": {
+							"body": "go go g\u00e4tschet de augen",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527875646645,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527875646169mJDZm:quintumvirat.com",
+						"unsigned": {
+							"age": 70506992
+						},
+						"content": {
+							"body": "mehehehe.jpg",
+							"info": {
+								"mimetype": "image/jpeg",
+								"thumbnail_info": {
+									"mimetype": "image/jpeg",
+									"h": 372,
+									"w": 310,
+									"size": 31562
+								},
+								"h": 372,
+								"thumbnail_url": "mxc://quintumvirat.com/HQWGUdUaXSISMTXPxcqeyvMu",
+								"w": 310,
+								"size": 33003
+							},
+							"msgtype": "m.image",
+							"url": "mxc://quintumvirat.com/jOrybyvdBhACYMkqHdMudUrY"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527882381822,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527882381238PoBLP:quintumvirat.com",
+						"unsigned": {
+							"age": 63771815
+						},
+						"content": {
+							"body": "http://www.krone.at/1716553",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527882505798,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527882505239ZLDiT:quintumvirat.com",
+						"unsigned": {
+							"age": 63647839
+						},
+						"content": {
+							"body": ">Welt offen halt, da hei\u00dft es dann daf\u00fcr eben die T\u00fcren dicht machen.",
+							"msgtype": "m.text",
+							"formatted_body": "<blockquote>\nWelt offen halt, da hei\u00dft es dann daf\u00fcr eben die T\u00fcren dicht machen.\n</blockquote>\n",
+							"format": "org.matrix.custom.html"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527882517326,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527882517240HVsda:quintumvirat.com",
+						"unsigned": {
+							"age": 63636311
+						},
+						"content": {
+							"body": "top",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527885082013,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527885082243FkRcg:quintumvirat.com",
+						"unsigned": {
+							"age": 61071624
+						},
+						"content": {
+							"body": "https://www.youtube.com/watch?v=2R4cQeRFUIc",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527885112476,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527885112244CerJF:quintumvirat.com",
+						"unsigned": {
+							"age": 61041161
+						},
+						"content": {
+							"body": ">boah das ist so heftig. Vor allem die Stelle wo das SEK rein st\u00fcrmt und sie fixieren muss.\ufeff",
+							"msgtype": "m.text",
+							"formatted_body": "<blockquote>\nboah das ist so heftig. Vor allem die Stelle wo das SEK rein st\u00fcrmt und sie fixieren muss.\n</blockquote>\n",
+							"format": "org.matrix.custom.html"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527943686947,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1527943686320FkEBM:quintumvirat.com",
+						"unsigned": {
+							"age": 2466690
+						},
+						"content": {
+							"body": "https://www.youtube.com/watch?v=pxNg0xcadsM",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}]
+				},
+				"state": {
+					"events": [{
+						"origin_server_ts": 1523624049833,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152362404918fBKsl:quintumvirat.com",
+						"unsigned": {
+							"age": 4322103804,
+							"replaces_state": "$152362399311WPjgF:quintumvirat.com"
+						},
+						"state_key": "",
+						"content": {
+							"join_rule": "public"
+						},
+						"type": "m.room.join_rules"
+					}, {
+						"origin_server_ts": 1523623993657,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$15236239938sRKoQ:quintumvirat.com",
+						"unsigned": {
+							"age": 4322159980
+						},
+						"state_key": "",
+						"content": {
+							"m.federate": false,
+							"creator": "@helmi77:quintumvirat.com"
+						},
+						"type": "m.room.create"
+					}, {
+						"origin_server_ts": 1523632293003,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152363229361LvlkU:quintumvirat.com",
+						"unsigned": {
+							"age": 4313860634,
+							"replaces_state": "$152362400215qyejM:quintumvirat.com"
+						},
+						"state_key": "",
+						"content": {
+							"url": "mxc://quintumvirat.com/hPDWVtxrLMAqTUozsTIQoiRx"
+						},
+						"type": "m.room.avatar"
+					}, {
+						"origin_server_ts": 1527007575938,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$1527007575329HFqcX:quintumvirat.com",
+						"unsigned": {
+							"age": 938577699,
+							"replaces_state": "$1523991245147vTOUL:quintumvirat.com"
+						},
+						"state_key": "@gabriel:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/uezHNUGBcgHzwwxaEuBrPeTA",
+							"displayname": "gabriel"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523626572397,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$152362657239nFEAK:quintumvirat.com",
+						"unsigned": {
+							"age": 4319581240,
+							"replaces_state": "$152362655538XuxbD:quintumvirat.com"
+						},
+						"state_key": "@vincent:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": null,
+							"displayname": "\u0412\u0438\u043d\u0441\u0435\u043d\u0442"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523623993954,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152362399314XVfhA:quintumvirat.com",
+						"unsigned": {
+							"age": 4322159683
+						},
+						"state_key": "",
+						"content": {
+							"name": "Quintumvirat"
+						},
+						"type": "m.room.name"
+					}, {
+						"origin_server_ts": 1523623993731,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$15236239939LWuLM:quintumvirat.com",
+						"unsigned": {
+							"age": 4322159906
+						},
+						"state_key": "@helmi77:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/cEPUemPozIMpnuYBcaVudqja",
+							"displayname": "helmi77"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523693368736,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152369336845BxWLc:quintumvirat.com",
+						"unsigned": {
+							"age": 4252784901,
+							"replaces_state": "$152365292223zZOFB:quintumvirat.com"
+						},
+						"state_key": "@cryptoprophet4:quintumvirat.com",
+						"content": {
+							"membership": "leave"
+						},
+						"membership": "leave",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523623993852,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152362399312sTNmG:quintumvirat.com",
+						"unsigned": {
+							"age": 4322159785
+						},
+						"state_key": "",
+						"content": {
+							"history_visibility": "shared"
+						},
+						"type": "m.room.history_visibility"
+					}, {
+						"origin_server_ts": 1523988376837,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$1523988376138EdZay:quintumvirat.com",
+						"unsigned": {
+							"age": 3957776800,
+							"replaces_state": "$152364503663dNYIt:quintumvirat.com"
+						},
+						"state_key": "@frisky:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/jELZDwRUQLOLMoESPORqWeHG",
+							"displayname": "frisky"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523623993772,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152362399310xYwgA:quintumvirat.com",
+						"unsigned": {
+							"age": 4322159865
+						},
+						"state_key": "",
+						"content": {
+							"events_default": 0,
+							"users": {
+								"@helmi77:quintumvirat.com": 100
+							},
+							"state_default": 50,
+							"redact": 50,
+							"ban": 50,
+							"users_default": 0,
+							"events": {
+								"m.room.avatar": 50,
+								"m.room.name": 50,
+								"m.room.canonical_alias": 50,
+								"m.room.history_visibility": 100,
+								"m.room.power_levels": 100
+							},
+							"kick": 50,
+							"invite": 0
+						},
+						"type": "m.room.power_levels"
+					}, {
+						"origin_server_ts": 1523655639641,
+						"sender": "@alex:quintumvirat.com",
+						"event_id": "$152365563940LHFpv:quintumvirat.com",
+						"unsigned": {
+							"age": 4290513996
+						},
+						"state_key": "@alex:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": null,
+							"displayname": "alex"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523624049804,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152362404916cJnOh:quintumvirat.com",
+						"unsigned": {
+							"age": 4322103833
+						},
+						"state_key": "",
+						"content": {
+							"alias": "#main:quintumvirat.com"
+						},
+						"type": "m.room.canonical_alias"
+					}, {
+						"origin_server_ts": 1525162182205,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1525162182124POXmz:quintumvirat.com",
+						"unsigned": {
+							"age": 2783971432,
+							"replaces_state": "$152372494361mZElk:quintumvirat.com"
+						},
+						"state_key": "@wurzelmann:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/ONfXgnpgHkeWVPkozYKPbUIY",
+							"displayname": "wurzelmann"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1524761171547,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1524761171113FYiLD:quintumvirat.com",
+						"unsigned": {
+							"age": 3184982090,
+							"replaces_state": "$152362404920TrNMA:quintumvirat.com"
+						},
+						"state_key": "",
+						"content": {
+							"disable": false
+						},
+						"type": "org.matrix.room.preview_urls"
+					}, {
+						"origin_server_ts": 1523624049841,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152362404919okPTT:quintumvirat.com",
+						"unsigned": {
+							"age": 4322103796,
+							"replaces_state": "$152362399313YJJXD:quintumvirat.com"
+						},
+						"state_key": "",
+						"content": {
+							"guest_access": "forbidden"
+						},
+						"type": "m.room.guest_access"
+					}, {
+						"origin_server_ts": 1523624049812,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152362404917BcRQu:quintumvirat.com",
+						"unsigned": {
+							"age": 4322103825
+						},
+						"state_key": "quintumvirat.com",
+						"content": {
+							"aliases": ["#main:quintumvirat.com"]
+						},
+						"type": "m.room.aliases"
+					}]
+				},
+				"ephemeral": {
+					"events": [{
+						"content": {
+							"user_ids": []
+						},
+						"type": "m.typing"
+					}, {
+						"content": {
+							"$152365313127RLrDr:quintumvirat.com": {
+								"m.read": {
+									"@cryptoprophet4:quintumvirat.com": {
+										"ts": 1523655422189
+									}
+								}
+							},
+							"$1527885112244CerJF:quintumvirat.com": {
+								"m.read": {
+									"@alex:quintumvirat.com": {
+										"ts": 1527918724676
+									},
+									"@wurzelmann:quintumvirat.com": {
+										"ts": 1527885208458
+									}
+								}
+							},
+							"$1527943686320FkEBM:quintumvirat.com": {
+								"m.read": {
+									"@vincent:quintumvirat.com": {
+										"ts": 1527943921659
+									},
+									"@helmi77:quintumvirat.com": {
+										"ts": 1527943694173
+									},
+									"@gabriel:quintumvirat.com": {
+										"ts": 1527945012214
+									},
+									"@frisky:quintumvirat.com": {
+										"ts": 1527943771481
+									}
+								}
+							}
+						},
+						"type": "m.receipt"
+					}]
+				},
+				"account_data": {
+					"events": [{
+						"content": {
+							"disable": false
+						},
+						"type": "org.matrix.room.preview_urls"
+					}, {
+						"content": {
+							"primary_color": "#81bddb",
+							"secondary_color": "#eaf1f4"
+						},
+						"type": "org.matrix.room.color_scheme"
+					}, {
+						"content": {
+							"event_id": "$1527943686320FkEBM:quintumvirat.com"
+						},
+						"type": "m.fully_read"
+					}]
+				}
+			},
+			"!aMPBrRfIXacqzRzAkN:quintumvirat.com": {
+				"unread_notifications": {
+					"highlight_count": 0,
+					"notification_count": 0
+				},
+				"timeline": {
+					"limited": true,
+					"prev_batch": "t421-4230_67792_874_7210_6631_4_1_92_1",
+					"events": [{
+						"origin_server_ts": 1527888561219,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527888561280FKSap:quintumvirat.com",
+						"unsigned": {
+							"age": 57592418
+						},
+						"content": {
+							"body": "nein",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527888591522,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527888591281TBDYo:quintumvirat.com",
+						"unsigned": {
+							"age": 57562115
+						},
+						"content": {
+							"body": "das sieht man auf dem bild nicht, aber unterhalb stehen mindestens 2 beh\u00e4lter die irgendwelche fl\u00fcssigkeiten auffangen",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527888609971,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527888609282cgbuV:quintumvirat.com",
+						"unsigned": {
+							"age": 57543666
+						},
+						"content": {
+							"body": "das ist leider das problem bei den alten autos",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527888610093,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$1527888610283GZdqd:quintumvirat.com",
+						"unsigned": {
+							"age": 57543544
+						},
+						"content": {
+							"body": "OK klingt schrottig",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527888619895,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$1527888619284blGzi:quintumvirat.com",
+						"unsigned": {
+							"age": 57533742
+						},
+						"content": {
+							"body": "Ist das nicht abdichtbar?",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527888642049,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527888642285EZpZt:quintumvirat.com",
+						"unsigned": {
+							"age": 57511588
+						},
+						"content": {
+							"body": "sicher, aber wenn das auto nie in betrieb ist und nie gewartet wird dann f\u00e4ngt alles an zu verfallen",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527888731847,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527888731286dksiw:quintumvirat.com",
+						"unsigned": {
+							"age": 57421790
+						},
+						"content": {
+							"body": "IMG_20180601_132801_HDR.jpg",
+							"info": {
+								"mimetype": "image/jpeg",
+								"thumbnail_info": {
+									"mimetype": "image/jpeg",
+									"h": 600,
+									"w": 799,
+									"size": 122659
+								},
+								"h": 949,
+								"thumbnail_url": "mxc://quintumvirat.com/yDYjUrryunDdDlqzYJtGSTSv",
+								"w": 1265,
+								"size": 261657
+							},
+							"msgtype": "m.image",
+							"url": "mxc://quintumvirat.com/BgsWRcqLxYQIOwlYsKxJKWgu"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527888743200,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527888743287UgXze:quintumvirat.com",
+						"unsigned": {
+							"age": 57410437
+						},
+						"content": {
+							"body": "dagegen ist der in tippitoppi zustand",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527888848860,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$1527888848288TGblF:quintumvirat.com",
+						"unsigned": {
+							"age": 57304777
+						},
+						"content": {
+							"body": "Happy",
+							"info": {
+								"mimetype": "image/png",
+								"thumbnail_info": {
+									"mimetype": "image/png",
+									"h": 158.0,
+									"w": 200.0,
+									"size": 110679.0
+								},
+								"h": 158.0,
+								"thumbnail_url": "mxc://matrix.org/gFrdGIZbVATfwziAHnIYwEuh",
+								"w": 200.0,
+								"size": 110679.0
+							},
+							"msgtype": "m.sticker",
+							"url": "mxc://matrix.org/gFrdGIZbVATfwziAHnIYwEuh"
+						},
+						"type": "m.sticker"
+					}, {
+						"origin_server_ts": 1527888856836,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527888856289VEUmZ:quintumvirat.com",
+						"unsigned": {
+							"age": 57296801
+						},
+						"content": {
+							"body": "diese dezenten chromleisten, bussi",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}]
+				},
+				"state": {
+					"events": [{
+						"origin_server_ts": 1523651396655,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152365139693mEyPy:quintumvirat.com",
+						"unsigned": {
+							"age": 4294756982
+						},
+						"state_key": "",
+						"content": {
+							"join_rule": "invite"
+						},
+						"type": "m.room.join_rules"
+					}, {
+						"origin_server_ts": 1523651396481,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152365139691ZOtwN:quintumvirat.com",
+						"unsigned": {
+							"age": 4294757156
+						},
+						"state_key": "@helmi77:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/cEPUemPozIMpnuYBcaVudqja",
+							"displayname": "helmi77"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523651396702,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152365139694DiDjg:quintumvirat.com",
+						"unsigned": {
+							"age": 4294756935
+						},
+						"state_key": "",
+						"content": {
+							"history_visibility": "shared"
+						},
+						"type": "m.room.history_visibility"
+					}, {
+						"origin_server_ts": 1523651396403,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152365139690dkxUH:quintumvirat.com",
+						"unsigned": {
+							"age": 4294757234
+						},
+						"state_key": "",
+						"content": {
+							"creator": "@helmi77:quintumvirat.com"
+						},
+						"type": "m.room.create"
+					}, {
+						"origin_server_ts": 1523651396571,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152365139692nrKGJ:quintumvirat.com",
+						"unsigned": {
+							"age": 4294757066
+						},
+						"state_key": "",
+						"content": {
+							"events_default": 0,
+							"users": {
+								"@vincent:quintumvirat.com": 100,
+								"@helmi77:quintumvirat.com": 100
+							},
+							"state_default": 50,
+							"redact": 50,
+							"ban": 50,
+							"users_default": 0,
+							"events": {
+								"m.room.avatar": 50,
+								"m.room.name": 50,
+								"m.room.canonical_alias": 50,
+								"m.room.history_visibility": 100,
+								"m.room.power_levels": 100
+							},
+							"kick": 50,
+							"invite": 0
+						},
+						"type": "m.room.power_levels"
+					}, {
+						"origin_server_ts": 1523654405130,
+						"sender": "@vincent:quintumvirat.com",
+						"event_id": "$152365440532XnqWo:quintumvirat.com",
+						"unsigned": {
+							"age": 4291748507,
+							"replaces_state": "$152365139696bJpKm:quintumvirat.com"
+						},
+						"state_key": "@vincent:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": null,
+							"displayname": "\u0412\u0438\u043d\u0441\u0435\u043d\u0442"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523651396769,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152365139695wbLtj:quintumvirat.com",
+						"unsigned": {
+							"age": 4294756868
+						},
+						"state_key": "",
+						"content": {
+							"guest_access": "can_join"
+						},
+						"type": "m.room.guest_access"
+					}]
+				},
+				"ephemeral": {
+					"events": [{
+						"content": {
+							"user_ids": []
+						},
+						"type": "m.typing"
+					}, {
+						"content": {
+							"$1527888856289VEUmZ:quintumvirat.com": {
+								"m.read": {
+									"@vincent:quintumvirat.com": {
+										"ts": 1527889214918
+									}
+								}
+							},
+							"$1527888848288TGblF:quintumvirat.com": {
+								"m.read": {
+									"@helmi77:quintumvirat.com": {
+										"ts": 1527888849441
+									}
+								}
+							}
+						},
+						"type": "m.receipt"
+					}]
+				},
+				"account_data": {
+					"events": [{
+						"content": {
+							"event_id": "$1527888856289VEUmZ:quintumvirat.com"
+						},
+						"type": "m.fully_read"
+					}]
+				}
+			},
+			"!dwAtyHHPDNNdtWBbkA:quintumvirat.com": {
+				"unread_notifications": {
+					"highlight_count": 0,
+					"notification_count": 0
+				},
+				"timeline": {
+					"limited": true,
+					"prev_batch": "t150-2973_67792_874_7210_6631_4_1_92_1",
+					"events": [{
+						"origin_server_ts": 1526633150745,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$15266331509OUDIf:quintumvirat.com",
+						"unsigned": {
+							"age": 1313002892
+						},
+						"content": {
+							"body": "ja, ich kann sie dir drau\u00dfen geben",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1526633290853,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$152663329010xVUwf:quintumvirat.com",
+						"unsigned": {
+							"age": 1312862784
+						},
+						"content": {
+							"body": "1507716828552.png",
+							"info": {
+								"mimetype": "image/png",
+								"thumbnail_info": {
+									"mimetype": "image/png",
+									"h": 428,
+									"w": 800,
+									"size": 142194
+								},
+								"h": 537,
+								"thumbnail_url": "mxc://quintumvirat.com/UqLCPeBKblLOmMqiBAfbRXIv",
+								"w": 1002,
+								"size": 131906
+							},
+							"msgtype": "m.image",
+							"url": "mxc://quintumvirat.com/RgSakAMivzpYkITcbPwCUrGX"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1526633395289,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152663339511jyzZc:quintumvirat.com",
+						"unsigned": {
+							"age": 1312758348
+						},
+						"content": {
+							"body": "perfekt, danke",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527235302832,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$15272353021PZAQw:quintumvirat.com",
+						"unsigned": {
+							"age": 710850805
+						},
+						"content": {
+							"body": "Essen ist heute um 13:30",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527235311170,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$15272353112UMywy:quintumvirat.com",
+						"unsigned": {
+							"age": 710842467
+						},
+						"content": {
+							"body": "Kannst aber gerne fr\u00fcher kommen",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527235318319,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$15272353183VtCTh:quintumvirat.com",
+						"unsigned": {
+							"age": 710835318
+						},
+						"content": {
+							"body": "alles klar, danke",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527343041014,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$15273430410EkOrr:quintumvirat.com",
+						"unsigned": {
+							"age": 603112623
+						},
+						"content": {
+							"body": "passt das wenn ich so um 17:15 bei euch vorbeikomme?",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527345257882,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$152734525711OjOYV:quintumvirat.com",
+						"unsigned": {
+							"age": 600895755
+						},
+						"content": {
+							"body": "Ist 17:30 OK?",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527345278863,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152734527812GLxCf:quintumvirat.com",
+						"unsigned": {
+							"age": 600874774
+						},
+						"content": {
+							"body": "ja",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527345464073,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152734546413XkMqu:quintumvirat.com",
+						"unsigned": {
+							"age": 600689564
+						},
+						"content": {
+							"body": "fr\u00fcher w\u00e4r besser wegen der parkpl\u00e4tze",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}]
+				},
+				"state": {
+					"events": [{
+						"origin_server_ts": 1523906202039,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152390620294ccirB:quintumvirat.com",
+						"unsigned": {
+							"age": 4039951598
+						},
+						"state_key": "",
+						"content": {
+							"join_rule": "invite"
+						},
+						"type": "m.room.join_rules"
+					}, {
+						"origin_server_ts": 1523906201947,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152390620192elcSF:quintumvirat.com",
+						"unsigned": {
+							"age": 4039951690
+						},
+						"state_key": "@helmi77:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/cEPUemPozIMpnuYBcaVudqja",
+							"displayname": "helmi77"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523906202144,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152390620296ZLJjm:quintumvirat.com",
+						"unsigned": {
+							"age": 4039951493
+						},
+						"state_key": "",
+						"content": {
+							"guest_access": "can_join"
+						},
+						"type": "m.room.guest_access"
+					}, {
+						"origin_server_ts": 1523906201866,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152390620191rkEoS:quintumvirat.com",
+						"unsigned": {
+							"age": 4039951771
+						},
+						"state_key": "",
+						"content": {
+							"creator": "@helmi77:quintumvirat.com"
+						},
+						"type": "m.room.create"
+					}, {
+						"origin_server_ts": 1523906201988,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152390620193oAIFS:quintumvirat.com",
+						"unsigned": {
+							"age": 4039951649
+						},
+						"state_key": "",
+						"content": {
+							"events_default": 0,
+							"users": {
+								"@wurzelmann:quintumvirat.com": 100,
+								"@helmi77:quintumvirat.com": 100
+							},
+							"state_default": 50,
+							"redact": 50,
+							"ban": 50,
+							"users_default": 0,
+							"events": {
+								"m.room.avatar": 50,
+								"m.room.name": 50,
+								"m.room.canonical_alias": 50,
+								"m.room.history_visibility": 100,
+								"m.room.power_levels": 100
+							},
+							"kick": 50,
+							"invite": 0
+						},
+						"type": "m.room.power_levels"
+					}, {
+						"origin_server_ts": 1525162182401,
+						"sender": "@wurzelmann:quintumvirat.com",
+						"event_id": "$1525162182126kDWnO:quintumvirat.com",
+						"unsigned": {
+							"age": 2783971236,
+							"replaces_state": "$152390721999oRSDn:quintumvirat.com"
+						},
+						"state_key": "@wurzelmann:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/ONfXgnpgHkeWVPkozYKPbUIY",
+							"displayname": "wurzelmann"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523906202104,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152390620295DDDJV:quintumvirat.com",
+						"unsigned": {
+							"age": 4039951533
+						},
+						"state_key": "",
+						"content": {
+							"history_visibility": "shared"
+						},
+						"type": "m.room.history_visibility"
+					}]
+				},
+				"ephemeral": {
+					"events": [{
+						"content": {
+							"$152734525711OjOYV:quintumvirat.com": {
+								"m.read": {
+									"@helmi77:quintumvirat.com": {
+										"ts": 1527345260579
+									}
+								}
+							},
+							"$152734546413XkMqu:quintumvirat.com": {
+								"m.read": {
+									"@wurzelmann:quintumvirat.com": {
+										"ts": 1527345490822
+									}
+								}
+							}
+						},
+						"type": "m.receipt"
+					}]
+				},
+				"account_data": {
+					"events": [{
+						"content": {
+							"event_id": "$152734546413XkMqu:quintumvirat.com"
+						},
+						"type": "m.fully_read"
+					}]
+				}
+			},
+			"!nGtyrDfALWotbghnbT:quintumvirat.com": {
+				"unread_notifications": {
+					"highlight_count": 0,
+					"notification_count": 0
+				},
+				"timeline": {
+					"limited": true,
+					"prev_batch": "t565-3457_67792_874_7210_6631_4_1_92_1",
+					"events": [{
+						"origin_server_ts": 1527152104663,
+						"sender": "@alex:quintumvirat.com",
+						"event_id": "$152715210470fWwXN:quintumvirat.com",
+						"unsigned": {
+							"age": 794048974
+						},
+						"content": {
+							"body": "f\u00fcr uns ist cloud bigquery evtl gescheiter als sql aus kostengr\u00fcnden",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527160955612,
+						"sender": "@alex:quintumvirat.com",
+						"event_id": "$152716095575aNHDw:quintumvirat.com",
+						"unsigned": {
+							"age": 785198025
+						},
+						"content": {
+							"body": "oder evtl doch datastore. da sollten wir aber zusammen sprechen und reden",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527344241251,
+						"sender": "@alex:quintumvirat.com",
+						"event_id": "$15273442413skWwH:quintumvirat.com",
+						"unsigned": {
+							"age": 601912386
+						},
+						"content": {
+							"body": "ich habe nochmal abgesch\u00e4tzt und gerechnet. bei 20 cent pro student pro monat kann man da schon profit machen bei einem semester. da ist noch das problem mit der langzeitigen datenspeicherung, dazu brauche ich aber bessere kenntnis \u00fcber das pricing und transferm\u00f6glichkeiten der cloud services. langzeitige datenspeicherung habe ich da noch nicht einbezogen.",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527344278468,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$15273442784gafPZ:quintumvirat.com",
+						"unsigned": {
+							"age": 601875169
+						},
+						"content": {
+							"body": "hast du auch die geb\u00fchren der payment provider ber\u00fccksichtigt.",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527344552400,
+						"sender": "@alex:quintumvirat.com",
+						"event_id": "$15273445525hJHEo:quintumvirat.com",
+						"unsigned": {
+							"age": 601601237
+						},
+						"content": {
+							"body": "da noch nicht, da ging es mal um die kosten der google produkte",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527344562852,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$15273445626hdDYZ:quintumvirat.com",
+						"unsigned": {
+							"age": 601590785
+						},
+						"content": {
+							"body": "ja",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527344728292,
+						"sender": "@alex:quintumvirat.com",
+						"event_id": "$15273447287QFBKR:quintumvirat.com",
+						"unsigned": {
+							"age": 601425345
+						},
+						"content": {
+							"body": "kommt halt auch daran an, wie wir es anbieten. beim pay store hat man einen einmaligen free von 25 euro",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527344776190,
+						"sender": "@alex:quintumvirat.com",
+						"event_id": "$15273447768ZLqNE:quintumvirat.com",
+						"unsigned": {
+							"age": 601377447
+						},
+						"content": {
+							"body": "und es gibt payment service provider, die ca 1-3 prozent der trabsaktion verlangen ohne zus\u00e4tzliche fees pro transaktion",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527344827385,
+						"sender": "@alex:quintumvirat.com",
+						"event_id": "$15273448279BPvti:quintumvirat.com",
+						"unsigned": {
+							"age": 601326252
+						},
+						"content": {
+							"body": "paypal hat schon alleine 3.4 prozent plus 0.20 pfund fee, das stinkt",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527344897262,
+						"sender": "@alex:quintumvirat.com",
+						"event_id": "$152734489710iXjCh:quintumvirat.com",
+						"unsigned": {
+							"age": 601256375
+						},
+						"content": {
+							"body": "wenn man das aber \u00fcber eine banktransaktion macht, h\u00e4tte man da nicht solche probleme",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}]
+				},
+				"state": {
+					"events": [{
+						"origin_server_ts": 1523819481953,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152381948163Ywtwu:quintumvirat.com",
+						"unsigned": {
+							"age": 4126671684
+						},
+						"state_key": "",
+						"content": {
+							"join_rule": "invite"
+						},
+						"type": "m.room.join_rules"
+					}, {
+						"origin_server_ts": 1523819481880,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152381948161EloCG:quintumvirat.com",
+						"unsigned": {
+							"age": 4126671757
+						},
+						"state_key": "@helmi77:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/cEPUemPozIMpnuYBcaVudqja",
+							"displayname": "helmi77"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523819481994,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152381948164VXYUl:quintumvirat.com",
+						"unsigned": {
+							"age": 4126671643
+						},
+						"state_key": "",
+						"content": {
+							"history_visibility": "shared"
+						},
+						"type": "m.room.history_visibility"
+					}, {
+						"origin_server_ts": 1523819481813,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152381948160SjBKh:quintumvirat.com",
+						"unsigned": {
+							"age": 4126671824
+						},
+						"state_key": "",
+						"content": {
+							"creator": "@helmi77:quintumvirat.com"
+						},
+						"type": "m.room.create"
+					}, {
+						"origin_server_ts": 1523819481910,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152381948162VORdF:quintumvirat.com",
+						"unsigned": {
+							"age": 4126671727
+						},
+						"state_key": "",
+						"content": {
+							"events_default": 0,
+							"users": {
+								"@alex:quintumvirat.com": 100,
+								"@helmi77:quintumvirat.com": 100
+							},
+							"state_default": 50,
+							"redact": 50,
+							"ban": 50,
+							"users_default": 0,
+							"events": {
+								"m.room.avatar": 50,
+								"m.room.name": 50,
+								"m.room.canonical_alias": 50,
+								"m.room.history_visibility": 100,
+								"m.room.power_levels": 100
+							},
+							"kick": 50,
+							"invite": 0
+						},
+						"type": "m.room.power_levels"
+					}, {
+						"origin_server_ts": 1523820978674,
+						"sender": "@alex:quintumvirat.com",
+						"event_id": "$152382097868BCUuH:quintumvirat.com",
+						"unsigned": {
+							"age": 4125174963,
+							"replaces_state": "$152381948266sntEZ:quintumvirat.com"
+						},
+						"state_key": "@alex:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": null,
+							"displayname": "alex"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523819482045,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152381948265RPFyr:quintumvirat.com",
+						"unsigned": {
+							"age": 4126671592
+						},
+						"state_key": "",
+						"content": {
+							"guest_access": "can_join"
+						},
+						"type": "m.room.guest_access"
+					}]
+				},
+				"ephemeral": {
+					"events": [{
+						"content": {
+							"$152734489710iXjCh:quintumvirat.com": {
+								"m.read": {
+									"@alex:quintumvirat.com": {
+										"ts": 1527344897441
+									},
+									"@helmi77:quintumvirat.com": {
+										"ts": 1527344898612
+									}
+								}
+							}
+						},
+						"type": "m.receipt"
+					}]
+				},
+				"account_data": {
+					"events": [{
+						"content": {
+							"event_id": "$152734489710iXjCh:quintumvirat.com"
+						},
+						"type": "m.fully_read"
+					}]
+				}
+			},
+			"!lZgdkAbKOJhmWeOOeB:quintumvirat.com": {
+				"unread_notifications": {
+					"highlight_count": 0,
+					"notification_count": 0
+				},
+				"timeline": {
+					"limited": true,
+					"prev_batch": "t1590-4255_67792_874_7210_6631_4_1_92_1",
+					"events": [{
+						"origin_server_ts": 1527889689225,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$1527889689305ZplSi:quintumvirat.com",
+						"unsigned": {
+							"age": 56464412
+						},
+						"content": {
+							"body": "27:50",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527889801103,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527889801306LMRNG:quintumvirat.com",
+						"unsigned": {
+							"age": 56352534
+						},
+						"content": {
+							"body": "kek",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527890030885,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527890030307tNTkr:quintumvirat.com",
+						"unsigned": {
+							"age": 56122752
+						},
+						"content": {
+							"body": "https://youtu.be/j3Ja5PrsOu8?t=926",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527890088087,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$1527890088308HCjex:quintumvirat.com",
+						"unsigned": {
+							"age": 56065550
+						},
+						"content": {
+							"body": "i dont get it",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527890105989,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$1527890105309lcpWG:quintumvirat.com",
+						"unsigned": {
+							"age": 56047648
+						},
+						"content": {
+							"body": "achso er schaut weg",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527890108633,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$1527890108310gGLFN:quintumvirat.com",
+						"unsigned": {
+							"age": 56045004
+						},
+						"content": {
+							"body": "und explodiert",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527890109611,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$1527890109311yMdwn:quintumvirat.com",
+						"unsigned": {
+							"age": 56044026
+						},
+						"content": {
+							"body": "lel",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527890110659,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527890110312aKTbn:quintumvirat.com",
+						"unsigned": {
+							"age": 56042978
+						},
+						"content": {
+							"body": "die physics bei H1Z1 sind komplett fucked",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527890183810,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$1527890183313oZebs:quintumvirat.com",
+						"unsigned": {
+							"age": 55969827
+						},
+						"content": {
+							"body": "ja vielleicht bin ich davon schon abget\u00f6tet weil ich schon schlimmeres erlebt habe  und garnicht in betracht gezogen hatte dass es eigentlich nicht passieren sollte",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527890192216,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527890192314scVpf:quintumvirat.com",
+						"unsigned": {
+							"age": 55961421
+						},
+						"content": {
+							"body": "aso",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}]
+				},
+				"state": {
+					"events": [{
+						"origin_server_ts": 1523645057903,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$152364505767slqzi:quintumvirat.com",
+						"unsigned": {
+							"age": 4301095734
+						},
+						"state_key": "",
+						"content": {
+							"join_rule": "invite"
+						},
+						"type": "m.room.join_rules"
+					}, {
+						"origin_server_ts": 1523988376931,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$1523988376139COYzi:quintumvirat.com",
+						"unsigned": {
+							"age": 3957776706,
+							"replaces_state": "$152364505765vFwag:quintumvirat.com"
+						},
+						"state_key": "@frisky:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/jELZDwRUQLOLMoESPORqWeHG",
+							"displayname": "frisky"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523645061601,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152364506171VCvlm:quintumvirat.com",
+						"unsigned": {
+							"age": 4301092036,
+							"replaces_state": "$152364505870eiqQb:quintumvirat.com"
+						},
+						"state_key": "@helmi77:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/cEPUemPozIMpnuYBcaVudqja",
+							"displayname": "helmi77"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1523645058002,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$152364505869pIXcB:quintumvirat.com",
+						"unsigned": {
+							"age": 4301095635
+						},
+						"state_key": "",
+						"content": {
+							"guest_access": "can_join"
+						},
+						"type": "m.room.guest_access"
+					}, {
+						"origin_server_ts": 1523645057760,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$152364505764JBAXT:quintumvirat.com",
+						"unsigned": {
+							"age": 4301095877
+						},
+						"state_key": "",
+						"content": {
+							"creator": "@frisky:quintumvirat.com"
+						},
+						"type": "m.room.create"
+					}, {
+						"origin_server_ts": 1523645057862,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$152364505766tBuwQ:quintumvirat.com",
+						"unsigned": {
+							"age": 4301095775
+						},
+						"state_key": "",
+						"content": {
+							"events_default": 0,
+							"users": {
+								"@helmi77:quintumvirat.com": 100,
+								"@frisky:quintumvirat.com": 100
+							},
+							"state_default": 50,
+							"redact": 50,
+							"ban": 50,
+							"users_default": 0,
+							"events": {
+								"m.room.avatar": 50,
+								"m.room.name": 50,
+								"m.room.canonical_alias": 50,
+								"m.room.history_visibility": 100,
+								"m.room.power_levels": 100
+							},
+							"kick": 50,
+							"invite": 0
+						},
+						"type": "m.room.power_levels"
+					}, {
+						"origin_server_ts": 1523645057961,
+						"sender": "@frisky:quintumvirat.com",
+						"event_id": "$152364505768ohcEo:quintumvirat.com",
+						"unsigned": {
+							"age": 4301095676
+						},
+						"state_key": "",
+						"content": {
+							"history_visibility": "shared"
+						},
+						"type": "m.room.history_visibility"
+					}]
+				},
+				"ephemeral": {
+					"events": [{
+						"content": {
+							"user_ids": []
+						},
+						"type": "m.typing"
+					}, {
+						"content": {
+							"$1527890192314scVpf:quintumvirat.com": {
+								"m.read": {
+									"@frisky:quintumvirat.com": {
+										"ts": 1527890194179
+									}
+								}
+							},
+							"$1527890183313oZebs:quintumvirat.com": {
+								"m.read": {
+									"@helmi77:quintumvirat.com": {
+										"ts": 1527890188001
+									}
+								}
+							}
+						},
+						"type": "m.receipt"
+					}]
+				},
+				"account_data": {
+					"events": [{
+						"content": {
+							"event_id": "$1527890192314scVpf:quintumvirat.com"
+						},
+						"type": "m.fully_read"
+					}]
+				}
+			},
+			"!VlEbxswoZQQcUctkoq:quintumvirat.com": {
+				"unread_notifications": {
+					"highlight_count": 0,
+					"notification_count": 0
+				},
+				"timeline": {
+					"limited": true,
+					"prev_batch": "t29-3698_67792_874_7210_6631_4_1_92_1",
+					"events": [{
+						"origin_server_ts": 1527327177969,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$1527327177184jVvaI:quintumvirat.com",
+						"unsigned": {
+							"age": 618975668
+						},
+						"content": {
+							"body": "3 min",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527331178968,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527331178189kuahA:quintumvirat.com",
+						"unsigned": {
+							"age": 614974669
+						},
+						"content": {
+							"body": "ich sitz drin",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527331932488,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$1527331932190yGoEk:quintumvirat.com",
+						"unsigned": {
+							"age": 614221149
+						},
+						"content": {
+							"body": "bin bei b\u00e4umler",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527333002658,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$1527333002191QQNGa:quintumvirat.com",
+						"unsigned": {
+							"age": 613150979
+						},
+						"content": {
+							"body": "bin bei salamander",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527349532381,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$152734953215VlCZh:quintumvirat.com",
+						"unsigned": {
+							"age": 596621256
+						},
+						"content": {
+							"body": "https://eu.suitsupply.com/de/suits/havana-navy-streifen/P5461.html?cgid=Suits&from=home",
+							"msgtype": "m.text",
+							"formatted_body": "<a href=\"https://eu.suitsupply.com/de/suits/havana-navy-streifen/P5461.html?cgid=Suits&amp;from=home\">https://eu.suitsupply.com/de/suits/havana-navy-streifen/P5461.html?cgid=Suits&amp;from=home</a>",
+							"format": "org.matrix.custom.html"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527349915250,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$152734991516sawsn:quintumvirat.com",
+						"unsigned": {
+							"age": 596238387
+						},
+						"content": {
+							"body": "https://eu.suitsupply.com/de/suits/lazio-hellbraun-streifen/P5400.html?cgid=Suits&from=home",
+							"msgtype": "m.text",
+							"formatted_body": "<a href=\"https://eu.suitsupply.com/de/suits/lazio-hellbraun-streifen/P5400.html?cgid=Suits&amp;from=home\">https://eu.suitsupply.com/de/suits/lazio-hellbraun-streifen/P5400.html?cgid=Suits&amp;from=home</a>",
+							"format": "org.matrix.custom.html"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527497377148,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$152749737754rDWuc:quintumvirat.com",
+						"unsigned": {
+							"age": 448776489
+						},
+						"content": {
+							"body": "Bildschirmfoto 2018-05-28 um 10.49.06.png",
+							"info": {
+								"mimetype": "image/png",
+								"thumbnail_info": {
+									"mimetype": "image/png",
+									"h": 500,
+									"w": 800,
+									"size": 124438
+								},
+								"h": 1800,
+								"thumbnail_url": "mxc://quintumvirat.com/MvgiOslnCtPRRGcFuwndWlbV",
+								"w": 2880,
+								"size": 1059537
+							},
+							"msgtype": "m.image",
+							"url": "mxc://quintumvirat.com/XHxbuNDkMLhSwvXfHUyFvdzu"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527497389030,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$152749738955feFDp:quintumvirat.com",
+						"unsigned": {
+							"age": 448764607
+						},
+						"content": {
+							"body": "hast du das design eh von overleaf? kek",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527503562030,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152750356256IKrYj:quintumvirat.com",
+						"unsigned": {
+							"age": 442591607
+						},
+						"content": {
+							"body": "aja voll",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}, {
+						"origin_server_ts": 1527503572075,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152750357257KXWai:quintumvirat.com",
+						"unsigned": {
+							"age": 442581562
+						},
+						"content": {
+							"body": "vor einigen jahren mal dort gefunden",
+							"msgtype": "m.text"
+						},
+						"type": "m.room.message"
+					}]
+				},
+				"state": {
+					"events": [{
+						"origin_server_ts": 1527242974227,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$152724297412cqgfT:quintumvirat.com",
+						"unsigned": {
+							"age": 703179410
+						},
+						"state_key": "",
+						"content": {
+							"join_rule": "invite"
+						},
+						"type": "m.room.join_rules"
+					}, {
+						"origin_server_ts": 1527242974134,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$152724297410zlLHL:quintumvirat.com",
+						"unsigned": {
+							"age": 703179503
+						},
+						"state_key": "@gabriel:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/uezHNUGBcgHzwwxaEuBrPeTA",
+							"displayname": "gabriel"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1527242983174,
+						"sender": "@helmi77:quintumvirat.com",
+						"event_id": "$152724298316tPqJG:quintumvirat.com",
+						"unsigned": {
+							"age": 703170463,
+							"replaces_state": "$152724297415BlFAV:quintumvirat.com"
+						},
+						"state_key": "@helmi77:quintumvirat.com",
+						"content": {
+							"membership": "join",
+							"avatar_url": "mxc://quintumvirat.com/cEPUemPozIMpnuYBcaVudqja",
+							"displayname": "helmi77"
+						},
+						"membership": "join",
+						"type": "m.room.member"
+					}, {
+						"origin_server_ts": 1527242974330,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$152724297414QkWar:quintumvirat.com",
+						"unsigned": {
+							"age": 703179307
+						},
+						"state_key": "",
+						"content": {
+							"guest_access": "can_join"
+						},
+						"type": "m.room.guest_access"
+					}, {
+						"origin_server_ts": 1527242974044,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$15272429749DyjRA:quintumvirat.com",
+						"unsigned": {
+							"age": 703179593
+						},
+						"state_key": "",
+						"content": {
+							"creator": "@gabriel:quintumvirat.com"
+						},
+						"type": "m.room.create"
+					}, {
+						"origin_server_ts": 1527242974179,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$152724297411UVoIv:quintumvirat.com",
+						"unsigned": {
+							"age": 703179458
+						},
+						"state_key": "",
+						"content": {
+							"events_default": 0,
+							"users": {
+								"@helmi77:quintumvirat.com": 100,
+								"@gabriel:quintumvirat.com": 100
+							},
+							"state_default": 50,
+							"redact": 50,
+							"ban": 50,
+							"users_default": 0,
+							"events": {
+								"m.room.avatar": 50,
+								"m.room.name": 50,
+								"m.room.canonical_alias": 50,
+								"m.room.history_visibility": 100,
+								"m.room.power_levels": 100
+							},
+							"kick": 50,
+							"invite": 0
+						},
+						"type": "m.room.power_levels"
+					}, {
+						"origin_server_ts": 1527242974302,
+						"sender": "@gabriel:quintumvirat.com",
+						"event_id": "$152724297413SfqrR:quintumvirat.com",
+						"unsigned": {
+							"age": 703179335
+						},
+						"state_key": "",
+						"content": {
+							"history_visibility": "shared"
+						},
+						"type": "m.room.history_visibility"
+					}]
+				},
+				"ephemeral": {
+					"events": [{
+						"content": {
+							"$152750357257KXWai:quintumvirat.com": {
+								"m.read": {
+									"@gabriel:quintumvirat.com": {
+										"ts": 1527505259595
+									}
+								}
+							},
+							"$152749738955feFDp:quintumvirat.com": {
+								"m.read": {
+									"@helmi77:quintumvirat.com": {
+										"ts": 1527503549483
+									}
+								}
+							}
+						},
+						"type": "m.receipt"
+					}]
+				},
+				"account_data": {
+					"events": [{
+						"content": {
+							"event_id": "$152750357257KXWai:quintumvirat.com"
+						},
+						"type": "m.fully_read"
+					}]
+				}
+			}
+		},
+		"invite": {}
+	}
+}

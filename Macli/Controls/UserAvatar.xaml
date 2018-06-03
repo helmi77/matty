@@ -1,0 +1,27 @@
+﻿<UserControl
+    x:Class="Macli.Controls.UserAvatar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Macli.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid>
+        <controls:ImageEx Source="{x:Bind AvatarUrl}"
+                          HorizontalContentAlignment="Center"
+                          HorizontalAlignment="Center"
+                          PlaceholderSource="/Assets/riot.png"
+                          PlaceholderStretch="UniformToFill"
+                          Stretch="UniformToFill"
+                          Background="White"
+                          Width="50"
+                          Height="50"
+                          CornerRadius="999"
+                          VerticalContentAlignment="Center"
+                          VerticalAlignment="Center" />
+    </Grid>
+</UserControl>
