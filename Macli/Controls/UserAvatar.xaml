@@ -18,8 +18,8 @@
                           PlaceholderStretch="UniformToFill"
                           Stretch="UniformToFill"
                           Background="White"
-                          Width="50"
-                          Height="50"
+                          Width="36"
+                          Height="36"
                           CornerRadius="999"
                           VerticalContentAlignment="Center"
                           VerticalAlignment="Center" />

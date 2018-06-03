@@ -30,7 +30,6 @@ namespace Macli
                 cfg.CreateMap<RoomEvent, Message>()
                     .ForMember(dst => dst.Sender, opts => opts.MapFrom(src => src.Sender))
                     .ForMember(dst => dst.Text, opts => opts.MapFrom(src => src.Content.Body))
-                    .ForMember(dst => dst.AvatarUrl, opts => opts.ResolveUsing(RetrieveUserAvatarUrl))
                     .ForAllOtherMembers(dst => dst.Ignore());
 
                 cfg.CreateMap<Room, Views.Models.Room>()
@@ -43,12 +42,6 @@ namespace Macli
                     .ForAllOtherMembers(dst => dst.Ignore());
             });
             isInitialized = true;
-        }
-
-        private static string RetrieveUserAvatarUrl(RoomEvent roomEvent)
-        {
-            if (roomEvent == null || string.IsNullOrEmpty(roomEvent.Sender)) return null;
-            return Task.Run(async () => await SynapseClient.Instance.GetAvatarUrl(roomEvent.Sender)).Result;
         }
 
         private static string GetRoomAvatarUrl(Room room)

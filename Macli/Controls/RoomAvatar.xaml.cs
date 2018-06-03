@@ -2,8 +2,6 @@
 using Windows.UI.Xaml.Controls;
 using Macli.Synapse;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Macli.Controls
 {
     public sealed partial class RoomAvatar : UserControl
@@ -14,7 +12,7 @@ namespace Macli.Controls
             set
             {
                 if (!string.IsNullOrEmpty(value))
-                    SetValue(AvatarUrlProperty, SynapseClient.Instance.GetPreviewUrl(value, 50, 50));
+                    SetValue(AvatarUrlProperty, SynapseClient.Instance.GetPreviewUrl(value, 44, 44));
             }
         }
 

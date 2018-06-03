@@ -46,12 +46,6 @@ namespace Macli.Synapse
             return Mapper.Map<IEnumerable<Room>, IEnumerable<Views.Models.Room>>(rooms);
         }
 
-        public async Task<string> GetAvatarUrl(string userId)
-        {
-            var mxcUrl = await SynapseAPI.GetAvatarUrlAsync(userId);
-            return string.IsNullOrEmpty(mxcUrl) ? null : GetPreviewUrl(mxcUrl, 50, 50);
-        }
-
         public string GetPreviewUrl(string mxcUrl, int width, int height)
         {
             var uri = new Uri(mxcUrl);

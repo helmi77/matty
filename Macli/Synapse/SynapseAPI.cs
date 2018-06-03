@@ -48,15 +48,6 @@ namespace Macli.Synapse
             return result.Data;
         }
 
-        public static async Task<string> GetAvatarUrlAsync(string userId)
-        {
-            var request = new RestRequest("profile/{userId}", Method.GET) {RequestFormat = DataFormat.Json};
-            request.AddUrlSegment("userId", userId);
-            var response = await client.ExecuteTaskAsync<Profile>(request);
-            return response.Data.AvatarUrl;
-
-        }
-
         public static string GetPreviewUrl(string server, string mediaId, int width, int height)
         {
             var request = new RestRequest("thumbnail/{server}/{mediaId}", Method.GET) { RequestFormat = DataFormat.Json };

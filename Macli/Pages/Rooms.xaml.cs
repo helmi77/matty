@@ -26,6 +26,7 @@ namespace Macli.Pages
             var rooms = await SynapseClient.Instance.LoadRoomsAsync(ViewModel);
             foreach (var room in rooms)
             {
+                // TODO: Lazy load user profiles
                 ViewModel.Rooms.Add(room);
             }
         }
