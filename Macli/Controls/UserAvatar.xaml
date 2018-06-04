@@ -21,7 +21,7 @@
                           Width="36"
                           Height="36"
                           CornerRadius="999"
-                          VerticalContentAlignment="Center"
-                          VerticalAlignment="Center" />
+                          VerticalContentAlignment="Top"
+                          VerticalAlignment="Top" />
     </Grid>
 </UserControl>

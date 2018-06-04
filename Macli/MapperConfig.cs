@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoMapper;
 using Macli.Synapse;
 using Macli.Synapse.DTO;
