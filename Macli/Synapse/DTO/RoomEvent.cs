@@ -5,7 +5,7 @@ namespace Macli.Synapse.DTO
     class RoomEvent
     {
         [DeserializeAs(Name = "origin_server_ts")]
-        public string Timestamp { get; set; }
+        public long Timestamp { get; set; }
 
         public string Sender { get; set; }
 
@@ -18,5 +18,7 @@ namespace Macli.Synapse.DTO
         public string Type { get; set; }
 
         public string Membership { get; set; }
+
+        public string Preview { get; set; }
     }
 }

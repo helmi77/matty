@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Macli.Synapse;
 using Macli.Synapse.DTO;
@@ -27,6 +28,11 @@ namespace Macli
                 cfg.CreateMap<RoomEvent, Message>()
                     .ForMember(dst => dst.Sender, opts => opts.MapFrom(src => src.Sender))
                     .ForMember(dst => dst.Text, opts => opts.MapFrom(src => src.Content.Body))
+                    .ForMember(dst => dst.Timestamp,
+                        opts => opts.MapFrom(src => DateTimeOffset.FromUnixTimeMilliseconds(src.Timestamp)))
+                    .ForMember(dst => dst.Preview,
+                        opts => opts.MapFrom(src =>
+                            string.IsNullOrEmpty(src.Preview) ? src.Content.Body.Replace('\n', ' ') : src.Preview))
                     .ForAllOtherMembers(dst => dst.Ignore());
 
                 cfg.CreateMap<Room, Views.Models.Room>()
@@ -57,7 +63,7 @@ namespace Macli
         {
             var lastMessage = room.History.Events.LastOrDefault(e => e.Type.Equals("m.room.message"));
             // TODO: Prepend sender display name?
-            return lastMessage?.Content.Body;
+            return lastMessage?.Preview;
         }
 
         private static string ResolveRoomName(Room room)

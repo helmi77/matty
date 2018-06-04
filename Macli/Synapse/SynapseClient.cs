@@ -43,7 +43,38 @@ namespace Macli.Synapse
         {
             var syncState = await SynapseAPI.SyncAsync(User.AccessToken);
             IEnumerable<Room> rooms = syncState.JoinedRooms.Values;
-            return Mapper.Map<IEnumerable<Room>, IEnumerable<Views.Models.Room>>(rooms);
+            return Mapper.Map<IEnumerable<Room>, IEnumerable<Views.Models.Room>>(ProcessMessages(rooms));
+        }
+
+        private IEnumerable<Room> ProcessMessages(IEnumerable<Room> rooms)
+        {
+            var roomList = rooms.ToList();
+            foreach (var room in roomList)
+            {
+                var events = new List<RoomEvent>();
+                RoomEvent prevEvent = null;
+                foreach (var roomEvent in room.History.Events)
+                {
+                    if (prevEvent != null)
+                    {
+                        if (prevEvent.Sender.Equals(roomEvent.Sender))
+                        {
+                            roomEvent.Preview = roomEvent.Content.Body.Replace('\n', ' ');
+                            roomEvent.Content.Body = $"{prevEvent.Content.Body}  \n  \n" +
+                                                     $"{roomEvent.Content.Body}";
+                        }
+                        else
+                        {
+                            events.Add(prevEvent);
+                        }
+                    }
+                    prevEvent = roomEvent;
+                }
+                events.Add(prevEvent);
+                room.History.Events = events;
+            }
+
+            return roomList;
         }
 
         public string GetPreviewUrl(string mxcUrl, int width, int height)

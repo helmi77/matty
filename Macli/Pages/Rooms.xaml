@@ -10,7 +10,7 @@
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded">
-    
+
     <Page.Resources>
         <converters:BoolToObjectConverter x:Key="MessageBrushConverter" TrueValue="#cfd8dc" FalseValue="White" />
         <converters:BoolToObjectConverter x:Key="MessageAlignConverter" TrueValue="Right" FalseValue="Left" />
@@ -44,8 +44,7 @@
                         <ItemsControl ItemsSource="{x:Bind Messages}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="models:Message">
-                                    <RelativePanel Width="Auto" 
-                                                   Margin="10,6,10,6"
+                                    <RelativePanel Margin="10,6,10,6"
                                                    FlowDirection="{x:Bind IsMine, Converter={StaticResource MessageFlowConverter}}"
                                                    HorizontalAlignment="{x:Bind IsMine, Converter={StaticResource MessageAlignConverter}}">
                                         <controls:UserAvatar x:Name="ProfilePicture"
@@ -58,18 +57,27 @@
                                               Data="M 0,0 l 15,0 0,15 Z" 
                                               Margin="0,0,-3,0"
                                               Fill="{x:Bind IsMine, Converter={StaticResource MessageBrushConverter}}" />
-                                        <Border CornerRadius="5"
-                                                Padding="12"
-                                                BorderThickness="0"
-                                                RelativePanel.RightOf="BubbleArrow"
-                                                Background="{x:Bind IsMine, Converter={StaticResource MessageBrushConverter}}">
-                                            <uwpcontrols:MarkdownTextBlock Text="{x:Bind Text}"
-                                                                           Padding="0" Margin="0"
-                                                                           LinkClicked="Markdown_LinkClicked"
-                                                                           VerticalContentAlignment="Center"
-                                                                           FlowDirection="LeftToRight"
-                                                                           HorizontalContentAlignment="Left" />
-                                        </Border>
+                                        <RelativePanel RelativePanel.RightOf="BubbleArrow">
+                                            <Border x:Name="MessageBubble"
+                                                    CornerRadius="5"
+                                                    Padding="12"
+                                                    BorderThickness="0"
+                                                    Background="{x:Bind IsMine, Converter={StaticResource MessageBrushConverter}}">
+                                                <uwpcontrols:MarkdownTextBlock Text="{x:Bind Text}"
+                                                                               Padding="0" Margin="0"
+                                                                               LinkClicked="Markdown_LinkClicked"
+                                                                               VerticalContentAlignment="Center"
+                                                                               FlowDirection="LeftToRight"
+                                                                               HorizontalContentAlignment="Left" />
+                                            </Border>
+                                            <TextBlock RelativePanel.Below="MessageBubble"
+                                                       RelativePanel.AlignLeftWithPanel="True"
+                                                       Text="{x:Bind Caption}" 
+                                                       Style="{StaticResource CaptionTextBlockStyle}"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="Gray" />
+                                        </RelativePanel>
+                                        
                                     </RelativePanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -93,7 +101,8 @@
                                      TextWrapping="Wrap"
                                      MinHeight="50"
                                      BorderThickness="0" 
-                                     VerticalAlignment="Top"/>
+                                     VerticalAlignment="Stretch"
+                                     VerticalContentAlignment="Top"/>
                     </Grid>
                 </Grid>
             </DataTemplate>
