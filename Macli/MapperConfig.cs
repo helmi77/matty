@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using AutoMapper;
 using Macli.Synapse;
 using Macli.Synapse.DTO;
@@ -28,12 +29,15 @@ namespace Macli
                 cfg.CreateMap<RoomEvent, Message>()
                     .ForMember(dst => dst.Sender, opts => opts.MapFrom(src => src.Sender))
                     .ForMember(dst => dst.Text, opts => opts.MapFrom(src => src.Content.Body))
+                    .ForMember(dst => dst.Url, opts => opts.MapFrom(src => src.Content.Url))
+                    .ForMember(dst => dst.IsFollowup, opts => opts.MapFrom(src => src.IsFollowup))
+                    .ForMember(dst => dst.IsLastFollowup, opts => opts.MapFrom(src => src.IsLastFollowup))
+                    .ForPath(dst => dst.Image.Height, opts => opts.MapFrom(src => src.Content.Height))
+                    .ForPath(dst => dst.Image.Width, opts => opts.MapFrom(src => src.Content.Width))
+                    .ForPath(dst => dst.Image.ThumbnailUrl, opts => opts.MapFrom(src => src.Content.ThumbnailUrl))
                     .ForMember(dst => dst.Timestamp,
                         opts => opts.MapFrom(src => DateTimeOffset.FromUnixTimeMilliseconds(src.Timestamp)))
-                    .ForMember(dst => dst.Preview,
-                        opts => opts.MapFrom(src =>
-                            string.IsNullOrEmpty(src.Preview) ? src.Content.Body.Replace('\n', ' ') : src.Preview))
-                    .ForAllOtherMembers(dst => dst.Ignore());
+                    .ForAllOtherMembers(mem => mem.Ignore());
 
                 cfg.CreateMap<Room, Views.Models.Room>()
                     .ForMember(dst => dst.Messages,
@@ -50,7 +54,7 @@ namespace Macli
         private static string GetRoomAvatarUrl(Room room)
         {
             var avatarEvent = room.State.Events.LastOrDefault(e => e.Type.Equals("m.room.avatar"));
-            if (avatarEvent != null) return avatarEvent.Content.RoomAvatarUrl;
+            if (avatarEvent != null) return avatarEvent.Content.Url;
 
             // Direct chats usually don't have an avatar event, use the profile picture of the other user
             var user = SynapseClient.Instance.User.ID;
@@ -63,7 +67,7 @@ namespace Macli
         {
             var lastMessage = room.History.Events.LastOrDefault(e => e.Type.Equals("m.room.message"));
             // TODO: Prepend sender display name?
-            return lastMessage?.Preview;
+            return lastMessage?.Content.Body;
         }
 
         private static string ResolveRoomName(Room room)

@@ -2,7 +2,7 @@
 
 namespace Macli.Synapse.DTO
 {
-    class EventContent
+    public class EventContent
     {
         public string Body { get; set; }
 
@@ -18,7 +18,14 @@ namespace Macli.Synapse.DTO
         public string UserAvatarUrl { get; set; }
 
         [DeserializeAs(Name = "url")]
-        public string RoomAvatarUrl { get; set; }
+        public string Url { get; set; }
+        [DeserializeAs(Name = "info.thumbnail_url")]
+        public string ThumbnailUrl { get; set; }
+        
+        [DeserializeAs(Name = "info.w")]
+        public int Width { get; set; }
+        [DeserializeAs(Name = "info.h")]
+        public int Height { get; set; }
 
         public string DisplayName { get; set; }
         public string Name { get; set; }

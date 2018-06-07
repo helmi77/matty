@@ -101,6 +101,10 @@
     <Compile Include="Controls\UserAvatar.xaml.cs">
       <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Processing\Comparers\FollowupComparer.cs" />
+    <Compile Include="Processing\SequenceProcessor.cs" />
+    <Compile Include="Processing\Sequence.cs" />
+    <Compile Include="Processing\Subsequence.cs" />
     <Compile Include="Synapse\DTO\Profile.cs" />
     <Compile Include="Synapse\DTO\EventContent.cs" />
     <Compile Include="Synapse\DTO\RoomEvent.cs" />

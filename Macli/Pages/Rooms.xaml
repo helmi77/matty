@@ -15,6 +15,8 @@
         <converters:BoolToObjectConverter x:Key="MessageBrushConverter" TrueValue="#cfd8dc" FalseValue="White" />
         <converters:BoolToObjectConverter x:Key="MessageAlignConverter" TrueValue="Right" FalseValue="Left" />
         <converters:BoolToObjectConverter x:Key="MessageFlowConverter" TrueValue="RightToLeft" FalseValue="LeftToRight" />
+        <converters:BoolToObjectConverter x:Key="FollowupLayoutConverter" TrueValue="58,0,58,6" FalseValue="10,6,10,6" />
+        <converters:BoolToVisibilityConverter x:Key="IsFollowupConverter" />
     </Page.Resources>
 
     <uwpcontrols:MasterDetailsView ItemsSource="{x:Bind ViewModel.Rooms, Mode=OneWay}"
@@ -44,18 +46,20 @@
                         <ItemsControl ItemsSource="{x:Bind Messages}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="models:Message">
-                                    <RelativePanel Margin="10,6,10,6"
+                                    <RelativePanel Margin="{x:Bind IsFollowup, Converter={StaticResource FollowupLayoutConverter}}"
                                                    FlowDirection="{x:Bind IsMine, Converter={StaticResource MessageFlowConverter}}"
                                                    HorizontalAlignment="{x:Bind IsMine, Converter={StaticResource MessageAlignConverter}}">
                                         <controls:UserAvatar x:Name="ProfilePicture"
-                                                             AvatarUrl="{x:Bind AvatarUrl}"
+                                                             AvatarUrl="{x:Bind Url}"
                                                              RelativePanel.AlignVerticalCenterWithPanel="False"
                                                              RelativePanel.AlignLeftWithPanel="True"
-                                                             ToolTipService.ToolTip="{x:Bind Sender}"/>
+                                                             ToolTipService.ToolTip="{x:Bind Sender}"
+                                                             Visibility="{x:Bind ShowDetails, Converter={StaticResource IsFollowupConverter}}" />
                                         <Path RelativePanel.RightOf="ProfilePicture" 
                                               x:Name="BubbleArrow" 
                                               Data="M 0,0 l 15,0 0,15 Z" 
                                               Margin="0,0,-3,0"
+                                              Visibility="{x:Bind ShowDetails, Converter={StaticResource IsFollowupConverter}}"
                                               Fill="{x:Bind IsMine, Converter={StaticResource MessageBrushConverter}}" />
                                         <RelativePanel RelativePanel.RightOf="BubbleArrow">
                                             <Border x:Name="MessageBubble"
@@ -72,12 +76,12 @@
                                             </Border>
                                             <TextBlock RelativePanel.Below="MessageBubble"
                                                        RelativePanel.AlignLeftWithPanel="True"
-                                                       Text="{x:Bind Caption}" 
+                                                       Foreground="Gray"
+                                                       VerticalAlignment="Center" 
+                                                       Text="{x:Bind Caption}"
                                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                                       VerticalAlignment="Center"
-                                                       Foreground="Gray" />
+                                                       Visibility="{x:Bind IsLastFollowup, Converter={StaticResource IsFollowupConverter}}" />
                                         </RelativePanel>
-                                        
                                     </RelativePanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

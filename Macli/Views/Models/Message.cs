@@ -6,12 +6,21 @@ namespace Macli.Views.Models
 {
     public class Message
     {
-        public string Text { get; set; }
         public string Sender { get; set; }
+        public string Text { get; set; }
+        public string Url { get; set; }
+
+        public bool IsFollowup { get; set; }
+        public bool IsLastFollowup { get; set; }
         public bool IsMine => Sender.Equals(SynapseClient.Instance.User.ID);
-        public string AvatarUrl { get; set; }
+        public bool ShowDetails => !IsFollowup;
+
         public DateTime Timestamp { get; set; }
-        public string Preview { get; set; }
+
+        public Picture Image { get; set; }
+
+        // TODO: Convert to Enum
+        public string Type { get; set; }
 
         public string Caption
         {
@@ -25,5 +34,12 @@ namespace Macli.Views.Models
                 return caption;
             }
         }
+    }
+
+    public class Picture
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public string ThumbnailUrl { get; set; }
     }
 }

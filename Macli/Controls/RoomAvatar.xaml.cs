@@ -17,7 +17,7 @@ namespace Macli.Controls
         }
 
         public static readonly DependencyProperty AvatarUrlProperty =
-            DependencyProperty.Register("AvatarUrl", typeof(string), typeof(RoomAvatar), null);
+            DependencyProperty.Register("Url", typeof(string), typeof(RoomAvatar), null);
 
         public RoomAvatar()
         {
