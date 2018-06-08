@@ -118,6 +118,7 @@
     <Compile Include="Synapse\DTO\RoomState.cs" />
     <Compile Include="Synapse\DTO\SyncState.cs" />
     <Compile Include="Synapse\DTO\RoomHistory.cs" />
+    <Compile Include="Synapse\DTO\UploadResult.cs" />
     <Compile Include="Views\BindableBase.cs" />
     <Compile Include="Views\LoginViewModel.cs" />
     <Compile Include="MapperConfig.cs" />

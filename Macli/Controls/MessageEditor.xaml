@@ -20,11 +20,17 @@
                               Background="WhiteSmoke"
                               Editor="{Binding ElementName=Editor}">
             <controls:TextToolbar.CustomButtons>
-                <buttons:ToolbarSeparator Position="12" />
-                <buttons:ToolbarButton Position="13"
+                <buttons:ToolbarButton Position="0"
                                        Icon="Send"
                                        ToolTip="Send message"
                                        Click="SendButton_OnClick" />
+                <buttons:ToolbarSeparator Position="1" />
+                <buttons:ToolbarButton Position="2"
+                                       Icon="Attach"
+                                       ToolTip="Send file"
+                                       Click="SendFile_OnClick"/>
+                <buttons:ToolbarSeparator Position="3" />
+                
             </controls:TextToolbar.CustomButtons>
         </controls:TextToolbar>
         <RichEditBox x:Name="Editor"

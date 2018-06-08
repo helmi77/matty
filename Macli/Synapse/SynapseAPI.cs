@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.IO;
 using Macli.Synapse.DTO;
 using RestSharp;
 using System.Net;
 using System.Threading.Tasks;
-using Room = Macli.Views.Models.Room;
 
 namespace Macli.Synapse
 {
@@ -71,6 +69,17 @@ namespace Macli.Synapse
             });
 
             await client.ExecuteTaskAsync(request);
+        }
+
+        public static async Task<string> UploadFileAsync(string accessToken, string name, string contentType, Stream fileStream)
+        {
+            var request = new RestRequest("upload", Method.POST) { RequestFormat = DataFormat.Json };
+            request.AddQueryParameter("filename", name);
+            request.AddQueryParameter("access_token", accessToken);
+            request.AddFile("file", fileStream.CopyTo, name, fileStream.Length, contentType);
+
+            var response = await media.ExecuteTaskAsync<UploadResult>(request);
+            return response.Data.ContentUri;
         }
     }
 }

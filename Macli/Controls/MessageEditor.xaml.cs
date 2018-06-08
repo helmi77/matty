@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Macli.Synapse;
 
 namespace Macli.Controls
 {
@@ -69,6 +73,24 @@ namespace Macli.Controls
         private void Editor_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
             KeyPressed?.Invoke(sender, e);
+        }
+
+        private async void SendFile_OnClick(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker picker = new FileOpenPicker
+            {
+                ViewMode = PickerViewMode.Thumbnail,
+                SuggestedStartLocation = PickerLocationId.PicturesLibrary,
+            };
+            picker.FileTypeFilter.Add(".jpg");
+            picker.FileTypeFilter.Add(".png");
+            picker.FileTypeFilter.Add(".gif");
+
+            StorageFile file = await picker.PickSingleFileAsync();
+            if (file == null) return;
+
+            var contentUri = await SynapseClient.Instance.UploadFile(file);
+            Debug.WriteLine("Uploaded file to " + contentUri);
         }
     }
 }

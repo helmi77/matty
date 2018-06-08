@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Macli.Synapse.DTO;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Globalization.NumberFormatting;
+using Windows.Storage;
 using Macli.Processing;
 using Macli.Processing.Comparers;
 using Macli.Storage;
@@ -84,6 +84,15 @@ namespace Macli.Synapse
         {
             var uri = new Uri(picture.ThumbnailUrl);
             return SynapseAPI.GetPreviewUrl(uri.Host, uri.Segments[1], picture.Width, picture.Height);
+        }
+
+        public async Task<string> UploadFile(StorageFile file)
+        {
+            using (var stream = await file.OpenReadAsync())
+            {
+                return await SynapseAPI.UploadFileAsync(User.AccessToken, file.Name, stream.ContentType,
+                    stream.AsStreamForRead());
+            }
         }
     }
 }
