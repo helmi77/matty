@@ -36,16 +36,15 @@ namespace Macli.Processing
             T lastItem = items.First();
             Rules.ForEach(rule => rule(lastItem));
 
-            foreach (var sequence in Sequences.Values)
+            foreach (Sequence<T> sequence in Sequences.Values)
                 sequence.StartNew(lastItem);
 
             for (int i = 1; i < items.Count; i++)
             {
                 T item = items[i];
                 Rules.ForEach(rule => rule(item));
-                foreach (KeyValuePair<string, Sequence<T>> entry in Sequences)
+                foreach (Sequence<T> sequence in Sequences.Values)
                 {
-                    Sequence<T> sequence = entry.Value;
                     if (sequence.Applies(lastItem, item))
                     {
                         if (sequence.IsRunning)
@@ -60,8 +59,8 @@ namespace Macli.Processing
                 lastItem = item;
             }
 
-            foreach (KeyValuePair<string, Sequence<T>> entry in Sequences)
-                entry.Value.ApplyRules();
+            foreach (Sequence<T> sequence in Sequences.Values)
+                sequence.ApplyRules();
         }
     }
 }

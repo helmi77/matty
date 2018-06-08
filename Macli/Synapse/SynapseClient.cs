@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Macli.Synapse.DTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Globalization.NumberFormatting;
@@ -55,7 +57,19 @@ namespace Macli.Synapse
             roomProcessor.AddRule(r => messageProcessor.Process(r.History.Events));
             roomProcessor.Process(rooms.ToList());
 
-            return Mapper.Map<IEnumerable<Room>, IEnumerable<Views.Models.Room>>(rooms);
+            IEnumerable<Views.Models.Room> result = Mapper.Map<IEnumerable<Room>, IEnumerable<Views.Models.Room>>(rooms);
+            return result.Zip(syncState.JoinedRooms.Keys, (room, id) =>
+            {
+                room.ID = id;
+                return room;
+            });
+        }
+        
+        public async Task SendMessageAsync(Views.Models.Room room)
+        {
+            if (room == null || string.IsNullOrEmpty(room.NewMessage)) return;
+            Debug.WriteLine($"Sending {room.NewMessage} in {room.ID}");
+            await SynapseAPI.SendMessageAsync(User.AccessToken, room.ID, room.NewMessage);
         }
 
         public string GetPreviewUrl(string mxcUrl, int width, int height)

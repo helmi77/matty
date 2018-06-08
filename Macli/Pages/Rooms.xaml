@@ -8,6 +8,7 @@
     xmlns:models="using:Macli.Views.Models"
     xmlns:controls="using:Macli.Controls"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    xmlns:buttons="using:Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarButtons"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded">
 
@@ -19,10 +20,12 @@
         <converters:BoolToVisibilityConverter x:Key="IsFollowupConverter" />
     </Page.Resources>
 
-    <uwpcontrols:MasterDetailsView ItemsSource="{x:Bind ViewModel.Rooms, Mode=OneWay}"
+    <uwpcontrols:MasterDetailsView Name="RommView"
+                                   ItemsSource="{x:Bind ViewModel.Rooms, Mode=OneWay}"
                                    BorderBrush="LightGray"
                                    HorizontalAlignment="Stretch"
-                                   HorizontalContentAlignment="Stretch">
+                                   HorizontalContentAlignment="Stretch"
+                                   SelectedItem="{x:Bind ViewModel.SelectedRoom, Mode=TwoWay}">
         <uwpcontrols:MasterDetailsView.ItemTemplate>
             <DataTemplate x:DataType="models:Room">
                 <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal">
@@ -88,26 +91,11 @@
                         </ItemsControl>
                     </ScrollViewer>
                     <uwpcontrols:GridSplitter Grid.Row="1" Background="WhiteSmoke" GripperForeground="Gray" />
-                    <Grid Grid.Row="2" VerticalAlignment="Stretch">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <uwpcontrols:TextToolbar x:Name="Toolbar" 
-                                                 Format="MarkDown" 
-                                                 Grid.Row="0"
-                                                 Background="WhiteSmoke"
-                                                 Editor="{Binding ElementName=Editor}" />
-                        <RichEditBox x:Name="Editor"
-                                     Grid.Row="1" 
-                                     Background="White"
-                                     PlaceholderText="Type your message here"
-                                     TextWrapping="Wrap"
-                                     MinHeight="50"
-                                     BorderThickness="0" 
-                                     VerticalAlignment="Stretch"
-                                     VerticalContentAlignment="Top"/>
-                    </Grid>
+                    <controls:MessageEditor Grid.Row="2" 
+                                            VerticalAlignment="Stretch" 
+                                            Message="{x:Bind NewMessage, Mode=TwoWay}" 
+                                            SendClicked="SendButton_OnClick"
+                                            KeyPressed="Editor_OnKeyDown" />
                 </Grid>
             </DataTemplate>
         </uwpcontrols:MasterDetailsView.DetailsTemplate>

@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Macli.Synapse;
 using Macli.Views;
 using Microsoft.Toolkit.Uwp.UI.Controls;
@@ -24,10 +29,10 @@ namespace Macli.Pages
             ViewModel.Rooms = new ObservableCollection<Room>();
             var rooms = await SynapseClient.Instance.LoadRoomsAsync(ViewModel);
             foreach (var room in rooms)
-            {
-                // TODO: Lazy load user profiles
                 ViewModel.Rooms.Add(room);
-            }
+
+            if (ViewModel.Rooms.Count > 0)
+                ViewModel.SelectedRoom = ViewModel.Rooms.First();
         }
 
         private async void Markdown_LinkClicked(object sender, LinkClickedEventArgs e)
@@ -36,6 +41,21 @@ namespace Macli.Pages
             {
                 await Launcher.LaunchUriAsync(link);
             }
+        }
+
+        private void Editor_OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            // TODO: Send message on enter pressed
+        }
+
+        private async void SendButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            await SendMessage();
+        }
+
+        private async Task SendMessage()
+        {
+            await SynapseClient.Instance.SendMessageAsync(ViewModel.SelectedRoom);
         }
     }
 }

@@ -10,5 +10,7 @@ namespace Macli.Views.Models
         public ICollection<Message> Messages { get; set; }
         public string AvatarUrl { get; set; }
         public string MessagePreview { get; set; }
+
+        public string NewMessage { get; set; }
     }
 }

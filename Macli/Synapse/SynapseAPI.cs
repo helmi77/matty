@@ -4,6 +4,7 @@ using Macli.Synapse.DTO;
 using RestSharp;
 using System.Net;
 using System.Threading.Tasks;
+using Room = Macli.Views.Models.Room;
 
 namespace Macli.Synapse
 {
@@ -56,6 +57,20 @@ namespace Macli.Synapse
             request.AddQueryParameter("width", width.ToString());
             request.AddQueryParameter("height", height.ToString());
             return media.BuildUri(request).ToString();
+        }
+
+        public static async Task SendMessageAsync(string accessToken, string roomId, string message)
+        {
+            var request = new RestRequest("rooms/{roomId}/send/m.room.message", Method.POST) { RequestFormat = DataFormat.Json };
+            request.AddUrlSegment("roomId", roomId);
+            request.AddQueryParameter("access_token", accessToken);
+            request.AddBody(new
+            {
+                msgtype = "m.text",
+                body = message,
+            });
+
+            await client.ExecuteTaskAsync(request);
         }
     }
 }

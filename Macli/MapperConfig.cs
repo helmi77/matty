@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using AutoMapper;
 using Macli.Synapse;
 using Macli.Synapse.DTO;
@@ -43,7 +42,6 @@ namespace Macli
                     .ForMember(dst => dst.Messages,
                         opts => opts.MapFrom(src => src.History.Events.Where(e => e.Type.Equals("m.room.message"))))
                     .ForMember(dst => dst.Name, opts => opts.ResolveUsing(ResolveRoomName))
-                    .ForMember(dst => dst.ID, opts => opts.UseValue("ID"))
                     .ForMember(dst => dst.MessagePreview, opts => opts.ResolveUsing(GenerateMessagePreview))
                     .ForMember(dst => dst.AvatarUrl, opts => opts.ResolveUsing(GetRoomAvatarUrl))
                     .ForAllOtherMembers(dst => dst.Ignore());
