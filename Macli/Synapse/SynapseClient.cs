@@ -11,6 +11,8 @@ using Macli.Processing;
 using Macli.Processing.Comparers;
 using Macli.Storage;
 using Macli.Views;
+using Macli.Views.Models;
+using Room = Macli.Synapse.DTO.Room;
 
 namespace Macli.Synapse
 {
@@ -76,6 +78,12 @@ namespace Macli.Synapse
         {
             var uri = new Uri(mxcUrl);
             return SynapseAPI.GetPreviewUrl(uri.Host, uri.Segments[1], width, height);
+        }
+
+        public string GetPreviewUrl(Picture picture)
+        {
+            var uri = new Uri(picture.ThumbnailUrl);
+            return SynapseAPI.GetPreviewUrl(uri.Host, uri.Segments[1], picture.Width, picture.Height);
         }
     }
 }

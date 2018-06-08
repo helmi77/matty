@@ -31,6 +31,7 @@ namespace Macli
                     .ForMember(dst => dst.Url, opts => opts.MapFrom(src => src.Content.Url))
                     .ForMember(dst => dst.IsFollowup, opts => opts.MapFrom(src => src.IsFollowup))
                     .ForMember(dst => dst.IsLastFollowup, opts => opts.MapFrom(src => src.IsLastFollowup))
+                    .ForMember(dst => dst.MessageType, opts => opts.MapFrom(src => src.Content.Type))
                     .ForPath(dst => dst.Image.Height, opts => opts.MapFrom(src => src.Content.Height))
                     .ForPath(dst => dst.Image.Width, opts => opts.MapFrom(src => src.Content.Width))
                     .ForPath(dst => dst.Image.ThumbnailUrl, opts => opts.MapFrom(src => src.Content.ThumbnailUrl))

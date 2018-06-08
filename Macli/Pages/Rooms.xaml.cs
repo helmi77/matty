@@ -35,14 +35,6 @@ namespace Macli.Pages
                 ViewModel.SelectedRoom = ViewModel.Rooms.First();
         }
 
-        private async void Markdown_LinkClicked(object sender, LinkClickedEventArgs e)
-        {
-            if (Uri.TryCreate(e.Link, UriKind.Absolute, out Uri link))
-            {
-                await Launcher.LaunchUriAsync(link);
-            }
-        }
-
         private void Editor_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
             // TODO: Send message on enter pressed

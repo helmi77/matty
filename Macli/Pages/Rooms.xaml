@@ -8,20 +8,17 @@
     xmlns:models="using:Macli.Views.Models"
     xmlns:controls="using:Macli.Controls"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
-    xmlns:buttons="using:Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarButtons"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded">
 
     <Page.Resources>
-        <converters:BoolToObjectConverter x:Key="MessageBrushConverter" TrueValue="#cfd8dc" FalseValue="White" />
         <converters:BoolToObjectConverter x:Key="MessageAlignConverter" TrueValue="Right" FalseValue="Left" />
         <converters:BoolToObjectConverter x:Key="MessageFlowConverter" TrueValue="RightToLeft" FalseValue="LeftToRight" />
         <converters:BoolToObjectConverter x:Key="FollowupLayoutConverter" TrueValue="58,0,58,6" FalseValue="10,6,10,6" />
         <converters:BoolToVisibilityConverter x:Key="IsFollowupConverter" />
     </Page.Resources>
 
-    <uwpcontrols:MasterDetailsView Name="RommView"
-                                   ItemsSource="{x:Bind ViewModel.Rooms, Mode=OneWay}"
+    <uwpcontrols:MasterDetailsView ItemsSource="{x:Bind ViewModel.Rooms, Mode=OneWay}"
                                    BorderBrush="LightGray"
                                    HorizontalAlignment="Stretch"
                                    HorizontalContentAlignment="Stretch"
@@ -58,33 +55,7 @@
                                                              RelativePanel.AlignLeftWithPanel="True"
                                                              ToolTipService.ToolTip="{x:Bind Sender}"
                                                              Visibility="{x:Bind ShowDetails, Converter={StaticResource IsFollowupConverter}}" />
-                                        <Path RelativePanel.RightOf="ProfilePicture" 
-                                              x:Name="BubbleArrow" 
-                                              Data="M 0,0 l 15,0 0,15 Z" 
-                                              Margin="0,0,-3,0"
-                                              Visibility="{x:Bind ShowDetails, Converter={StaticResource IsFollowupConverter}}"
-                                              Fill="{x:Bind IsMine, Converter={StaticResource MessageBrushConverter}}" />
-                                        <RelativePanel RelativePanel.RightOf="BubbleArrow">
-                                            <Border x:Name="MessageBubble"
-                                                    CornerRadius="5"
-                                                    Padding="12"
-                                                    BorderThickness="0"
-                                                    Background="{x:Bind IsMine, Converter={StaticResource MessageBrushConverter}}">
-                                                <uwpcontrols:MarkdownTextBlock Text="{x:Bind Text}"
-                                                                               Padding="0" Margin="0"
-                                                                               LinkClicked="Markdown_LinkClicked"
-                                                                               VerticalContentAlignment="Center"
-                                                                               FlowDirection="LeftToRight"
-                                                                               HorizontalContentAlignment="Left" />
-                                            </Border>
-                                            <TextBlock RelativePanel.Below="MessageBubble"
-                                                       RelativePanel.AlignLeftWithPanel="True"
-                                                       Foreground="Gray"
-                                                       VerticalAlignment="Center" 
-                                                       Text="{x:Bind Caption}"
-                                                       Style="{StaticResource CaptionTextBlockStyle}"
-                                                       Visibility="{x:Bind IsLastFollowup, Converter={StaticResource IsFollowupConverter}}" />
-                                        </RelativePanel>
+                                        <controls:MessageBubble RelativePanel.RightOf="ProfilePicture" Message="{x:Bind Mode=TwoWay}" />
                                     </RelativePanel>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

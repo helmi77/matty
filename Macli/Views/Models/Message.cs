@@ -19,8 +19,7 @@ namespace Macli.Views.Models
 
         public Picture Image { get; set; }
 
-        // TODO: Convert to Enum
-        public string Type { get; set; }
+        public string MessageType { get; set; }
 
         public string Caption
         {
