@@ -5,6 +5,7 @@ using Macli.Synapse;
 using Macli.Synapse.DTO;
 using Macli.Views;
 using Macli.Views.Models;
+using Profile = Macli.Views.Models.Profile;
 using Room = Macli.Synapse.DTO.Room;
 
 namespace Macli
@@ -35,6 +36,7 @@ namespace Macli
                     .ForPath(dst => dst.Image.Height, opts => opts.MapFrom(src => src.Content.Height))
                     .ForPath(dst => dst.Image.Width, opts => opts.MapFrom(src => src.Content.Width))
                     .ForPath(dst => dst.Image.ThumbnailUrl, opts => opts.MapFrom(src => src.Content.ThumbnailUrl))
+                    .ForPath(dst => dst.Image.Url, opts => opts.MapFrom(src => src.Content.Url))
                     .ForMember(dst => dst.Timestamp,
                         opts => opts.MapFrom(src => DateTimeOffset.FromUnixTimeMilliseconds(src.Timestamp)))
                     .ForAllOtherMembers(mem => mem.Ignore());
@@ -45,7 +47,12 @@ namespace Macli
                     .ForMember(dst => dst.Name, opts => opts.ResolveUsing(ResolveRoomName))
                     .ForMember(dst => dst.MessagePreview, opts => opts.ResolveUsing(GenerateMessagePreview))
                     .ForMember(dst => dst.AvatarUrl, opts => opts.ResolveUsing(GetRoomAvatarUrl))
-                    .ForAllOtherMembers(dst => dst.Ignore());
+                    .ForAllOtherMembers(mem => mem.Ignore());
+
+                cfg.CreateMap<UserProfile, Profile>()
+                    .ForMember(dst => dst.AvatarUrl, opts => opts.MapFrom(src => src.AvatarUrl))
+                    .ForMember(dst => dst.DisplayName, opts => opts.MapFrom(src => src.DisplayName))
+                    .ForAllOtherMembers(mem => mem.Ignore());
             });
             isInitialized = true;
         }

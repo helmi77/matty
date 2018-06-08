@@ -111,7 +111,7 @@
     <Compile Include="Processing\SequenceProcessor.cs" />
     <Compile Include="Processing\Sequence.cs" />
     <Compile Include="Processing\Subsequence.cs" />
-    <Compile Include="Synapse\DTO\Profile.cs" />
+    <Compile Include="Synapse\DTO\UserProfile.cs" />
     <Compile Include="Synapse\DTO\EventContent.cs" />
     <Compile Include="Synapse\DTO\RoomEvent.cs" />
     <Compile Include="Synapse\DTO\Room.cs" />
@@ -119,10 +119,12 @@
     <Compile Include="Synapse\DTO\SyncState.cs" />
     <Compile Include="Synapse\DTO\RoomHistory.cs" />
     <Compile Include="Synapse\DTO\UploadResult.cs" />
+    <Compile Include="Synapse\UserManager.cs" />
     <Compile Include="Views\BindableBase.cs" />
     <Compile Include="Views\LoginViewModel.cs" />
     <Compile Include="MapperConfig.cs" />
     <Compile Include="Views\Models\Message.cs" />
+    <Compile Include="Views\Models\Profile.cs" />
     <Compile Include="Views\Models\Room.cs" />
     <Compile Include="Views\RoomViewModel.cs" />
     <Compile Include="Pages\Home.xaml.cs">

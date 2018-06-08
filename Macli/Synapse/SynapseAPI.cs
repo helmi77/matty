@@ -81,5 +81,14 @@ namespace Macli.Synapse
             var response = await media.ExecuteTaskAsync<UploadResult>(request);
             return response.Data.ContentUri;
         }
+
+        public static async Task<UserProfile> GetUserProfileAsync(string userId)
+        {
+            var request = new RestRequest("profile/{userId}") { RequestFormat = DataFormat.Json };
+            request.AddUrlSegment("userId", userId);
+
+            var response = await client.ExecuteTaskAsync<UserProfile>(request);
+            return response.Data;
+        }
     }
 }

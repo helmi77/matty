@@ -50,7 +50,7 @@
                                                    FlowDirection="{x:Bind IsMine, Converter={StaticResource MessageFlowConverter}}"
                                                    HorizontalAlignment="{x:Bind IsMine, Converter={StaticResource MessageAlignConverter}}">
                                         <controls:UserAvatar x:Name="ProfilePicture"
-                                                             AvatarUrl="{x:Bind Url}"
+                                                             UserID="{x:Bind Sender}"
                                                              RelativePanel.AlignVerticalCenterWithPanel="False"
                                                              RelativePanel.AlignLeftWithPanel="True"
                                                              ToolTipService.ToolTip="{x:Bind Sender}"

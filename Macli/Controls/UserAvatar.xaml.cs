@@ -1,22 +1,45 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Macli.Synapse;
+using Macli.Views.Models;
 
 namespace Macli.Controls
 {
     public sealed partial class UserAvatar : UserControl
     {
-        public string AvatarUrl
+        public string UserID
         {
-            get => (string)GetValue(AvatarUrlProperty);
-            set => SetValue(AvatarUrlProperty, value);
+            get => (string) GetValue(UserIDProperty);
+            set => SetValue(UserIDProperty, value);
         }
 
-        public static readonly DependencyProperty AvatarUrlProperty =
-            DependencyProperty.Register("Url", typeof(string), typeof(UserAvatar), null);
+        public string AvatarUrl
+        {
+            get => (string) GetValue(AvatarUrlProperty);
+            set => SetValue(AvatarUrlProperty, value);
+        }
+        
+        public static readonly DependencyProperty AvatarUrlProperty = DependencyProperty.Register(
+            "AvatarUrl", typeof(string), typeof(UserAvatar), new PropertyMetadata(default(string)));
+
+        public static readonly DependencyProperty UserIDProperty = DependencyProperty.Register("UserID", typeof(string),
+            typeof(UserAvatar), new PropertyMetadata(default(string), UserIDChanged));
 
         public UserAvatar()
         {
             InitializeComponent();
+        }
+
+        private static async void UserIDChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            UserAvatar avatarControl = d as UserAvatar;
+            if (avatarControl == null) return;
+
+            Profile profile = await SynapseClient.Instance.GetUserProfileAsync(avatarControl.UserID);
+            if (profile?.AvatarUrl == null) return;
+
+            string avatarUrl = SynapseClient.Instance.GetPreviewUrl(profile.AvatarUrl, 36, 36);
+            avatarControl.AvatarUrl = avatarUrl;
         }
     }
 }

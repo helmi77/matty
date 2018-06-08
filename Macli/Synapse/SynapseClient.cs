@@ -12,6 +12,7 @@ using Macli.Processing.Comparers;
 using Macli.Storage;
 using Macli.Views;
 using Macli.Views.Models;
+using Profile = Macli.Views.Models.Profile;
 using Room = Macli.Synapse.DTO.Room;
 
 namespace Macli.Synapse
@@ -22,9 +23,13 @@ namespace Macli.Synapse
         private static readonly Lazy<SynapseClient> instance = new Lazy<SynapseClient>(() => new SynapseClient());
 
         public User User { get; set; }
+        public UserManager UserManager { get; set; }
         public string EndpointUrl { get; set; }
 
-        private SynapseClient() { }
+        private SynapseClient()
+        {
+            UserManager = new UserManager();
+        }
 
         public void Initialize(InitialState state)
         {
@@ -82,8 +87,13 @@ namespace Macli.Synapse
 
         public string GetPreviewUrl(Picture picture)
         {
-            var uri = new Uri(picture.ThumbnailUrl);
+            var uri = new Uri(picture.ThumbnailUrl ?? picture.Url);
             return SynapseAPI.GetPreviewUrl(uri.Host, uri.Segments[1], picture.Width, picture.Height);
+        }
+
+        public async Task<Profile> GetUserProfileAsync(string userId)
+        {
+            return await UserManager.LookupAsync(userId);
         }
 
         public async Task<string> UploadFile(StorageFile file)
