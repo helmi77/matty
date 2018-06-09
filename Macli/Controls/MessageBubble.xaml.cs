@@ -40,12 +40,11 @@ namespace Macli.Controls
         {
             MessageBubble messageBubble = d as MessageBubble;
             if (messageBubble == null) return;
-
+            
             Message message = messageBubble.Message;
             if (message.MessageType == "m.image")
             {
                 string url = SynapseClient.Instance.GetPreviewUrl(message.Image);
-                Debug.WriteLine("Loading image " + url);
                 if (!messageBubble.lockChangeExecution)
                 {
                     messageBubble.lockChangeExecution = true;
@@ -57,7 +56,6 @@ namespace Macli.Controls
 
         private void OnImageResolving(object sender, ImageResolvingEventArgs e)
         {
-            Debug.WriteLine("Resolving image " + e.Url);
         }
     }
 }

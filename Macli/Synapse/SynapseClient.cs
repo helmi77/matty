@@ -91,9 +91,9 @@ namespace Macli.Synapse
             return SynapseAPI.GetPreviewUrl(uri.Host, uri.Segments[1], picture.Width, picture.Height);
         }
 
-        public async Task<Profile> GetUserProfileAsync(string userId)
+        public async Task<string> GetUserAvatarThumbnailAsync(string userId)
         {
-            return await UserManager.LookupAsync(userId);
+            return await UserManager.GetAvatarAsync(userId);
         }
 
         public async Task<string> UploadFile(StorageFile file)

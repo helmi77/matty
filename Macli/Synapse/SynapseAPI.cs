@@ -90,5 +90,12 @@ namespace Macli.Synapse
             var response = await client.ExecuteTaskAsync<UserProfile>(request);
             return response.Data;
         }
+
+        public static async Task<DownloadResult> DownloadImageAsync(string imageUrl)
+        {
+            var request = new RestRequest(imageUrl) { RequestFormat = DataFormat.Json };
+            var response = await client.ExecuteTaskAsync(request);
+            return new DownloadResult {Content = response.RawBytes, ContentType = response.ContentType};
+        }
     }
 }

@@ -35,11 +35,14 @@ namespace Macli.Controls
             UserAvatar avatarControl = d as UserAvatar;
             if (avatarControl == null) return;
 
+            string thumbnailPath = await SynapseClient.Instance.GetUserAvatarThumbnailAsync(avatarControl.UserID);
+            avatarControl.AvatarUrl = thumbnailPath;
+            /*
             Profile profile = await SynapseClient.Instance.GetUserProfileAsync(avatarControl.UserID);
             if (profile?.AvatarUrl == null) return;
 
             string avatarUrl = SynapseClient.Instance.GetPreviewUrl(profile.AvatarUrl, 36, 36);
-            avatarControl.AvatarUrl = avatarUrl;
+            avatarControl.AvatarUrl = avatarUrl;*/
         }
     }
 }

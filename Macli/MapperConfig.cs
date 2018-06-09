@@ -72,7 +72,6 @@ namespace Macli
         private static string GenerateMessagePreview(Room room)
         {
             var lastMessage = room.History.Events.LastOrDefault(e => e.Type.Equals("m.room.message"));
-            // TODO: Prepend sender display name?
             return lastMessage?.Content.Body;
         }
 
