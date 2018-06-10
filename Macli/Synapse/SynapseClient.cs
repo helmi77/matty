@@ -12,7 +12,6 @@ using Macli.Processing.Comparers;
 using Macli.Storage;
 using Macli.Views;
 using Macli.Views.Models;
-using Profile = Macli.Views.Models.Profile;
 using Room = Macli.Synapse.DTO.Room;
 
 namespace Macli.Synapse
@@ -52,29 +51,6 @@ namespace Macli.Synapse
             User = await SynapseAPI.LoginAsync(credentials);
         }
 
-        public async Task<IEnumerable<Views.Models.Room>> LoadRoomsAsync(RoomViewModel viewModel)
-        {
-            var syncState = await SynapseAPI.SyncAsync(User.AccessToken);
-            IEnumerable<Room> rooms = syncState.JoinedRooms.Values;
-            nextBatch = syncState.NextBatch;
-
-            var messageProcessor = new SequenceProcessor<RoomEvent>();
-            messageProcessor.DefineSequence("FollowupMessages", new FollowupComparer());
-            messageProcessor.AddSequenceRule("FollowupMessages", sequence => sequence.Tail.ForEach(item => item.IsFollowup = true));
-            messageProcessor.AddSequenceRule("FollowupMessages", sequence => sequence.Last.IsLastFollowup = true);
-
-            var roomProcessor = new SequenceProcessor<Room>();
-            roomProcessor.AddRule(r => messageProcessor.Process(r.History.Events));
-            roomProcessor.Process(rooms.ToList());
-            
-            IEnumerable<Views.Models.Room> result = Mapper.Map<IEnumerable<Room>, IEnumerable<Views.Models.Room>>(rooms);
-            return result.Zip(syncState.JoinedRooms.Keys, (room, id) =>
-            {
-                room.ID = id;
-                return room;
-            });
-        }
-        
         public async Task SendMessageAsync(Views.Models.Room room)
         {
             if (room == null || string.IsNullOrEmpty(room.NewMessage)) return;

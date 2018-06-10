@@ -29,7 +29,7 @@ namespace Macli.Pages
         private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             ViewModel.Rooms = new ObservableCollection<Room>();
-            var rooms = await SynapseClient.Instance.LoadRoomsAsync(ViewModel);
+            var rooms = await SynapseClient.Instance.SynchronizeAsync();
             foreach (var room in rooms)
                 ViewModel.Rooms.Add(room);
 

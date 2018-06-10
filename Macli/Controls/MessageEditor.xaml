@@ -43,6 +43,7 @@
                      VerticalAlignment="Stretch"
                      VerticalContentAlignment="Top"
                      KeyDown="Editor_OnKeyDown"
-                     TextChanged="Message_TextChanged"/>
+                     TextChanged="Message_TextChanged"
+                     IsSpellCheckEnabled="False" />
     </Grid>
 </UserControl>

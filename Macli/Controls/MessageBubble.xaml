@@ -37,8 +37,7 @@
                                             HorizontalContentAlignment="Left"
                                             ImageStretch="None" />
             </Border>
-            <TextBlock x:Name="CaptionTextBlock" 
-                       RelativePanel.Below="MessageBorder"
+            <TextBlock RelativePanel.Below="MessageBorder"
                        RelativePanel.AlignLeftWithPanel="True"
                        Foreground="Gray"
                        VerticalAlignment="Center" 
