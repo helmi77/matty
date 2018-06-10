@@ -1,8 +1,7 @@
 ﻿<Page
-    x:Class="Macli.Pages.Overview"
+    x:Class="UI.Pages.Overview"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Macli.Pages"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,19 +14,9 @@
                     BackRequested="NavigationView_BackRequested" 
                     AlwaysShowHeader="False">
         <NavigationView.MenuItems>
-            <NavigationViewItem Content="Home" Tag="home">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="Home" />
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
             <NavigationViewItem Content="Rooms" Tag="rooms">
                 <NavigationViewItem.Icon>
                     <SymbolIcon Symbol="Message" />
-                </NavigationViewItem.Icon>
-            </NavigationViewItem>
-            <NavigationViewItem Content="People" Tag="people">
-                <NavigationViewItem.Icon>
-                    <SymbolIcon Symbol="People" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
             <NavigationViewItemSeparator />

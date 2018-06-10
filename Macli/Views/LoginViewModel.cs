@@ -1,4 +1,6 @@
-﻿namespace Macli.Views
+﻿using Model;
+
+namespace UI.Views
 {
     public class LoginViewModel : BindableBase
     {

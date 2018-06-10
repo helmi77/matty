@@ -1,20 +1,18 @@
-﻿using Macli.Storage;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Storage;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
-namespace Macli.Pages
+namespace UI.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Overview : Page
+    public sealed partial class Overview
     {
         public Overview()
         {
@@ -23,16 +21,17 @@ namespace Macli.Pages
 
         private void NavigationView_Loaded(object sender, RoutedEventArgs e)
         {
+            ContentFrame.Navigated += On_Navigated;
             // Set the initial SelectedItem 
             foreach (NavigationViewItemBase item in NavView.MenuItems)
             {
-                if (item is NavigationViewItem && item.Tag.ToString() == "home")
+                if (item is NavigationViewItem && item.Tag.ToString() == "rooms")
                 {
                     NavView.SelectedItem = item;
                     break;
                 }
             }
-            ContentFrame.Navigated += On_Navigated;
+            ContentFrame.Navigate(typeof(Rooms));
         }
 
         private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -53,9 +52,6 @@ namespace Macli.Pages
         {
             switch (item.Tag)
             {
-                case "home":
-                    ContentFrame.Navigate(typeof(Home));
-                    break;
                 case "rooms":
                     ContentFrame.Navigate(typeof(Rooms));
                     break;
@@ -89,13 +85,11 @@ namespace Macli.Pages
             {
                 return false;
             }
-            else
+
+            if (ContentFrame.CanGoBack)
             {
-                if (ContentFrame.CanGoBack)
-                {
-                    ContentFrame.GoBack();
-                    navigated = true;
-                }
+                ContentFrame.GoBack();
+                navigated = true;
             }
             return navigated;
         }
@@ -110,9 +104,8 @@ namespace Macli.Pages
             }
             else
             {
-                Dictionary<Type, string> lookup = new Dictionary<Type, string>()
+                Dictionary<Type, string> lookup = new Dictionary<Type, string>
                 {
-                    {typeof(Home), "home"},
                     {typeof(Rooms), "rooms"},
                 };
                 

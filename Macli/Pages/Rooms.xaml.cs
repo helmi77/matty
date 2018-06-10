@@ -1,19 +1,17 @@
-﻿using Macli.Synapse;
-using Macli.Views;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.System;
 using Windows.System.Threading;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Macli.Extensions;
-using Room = Macli.Views.Models.Room;
+using Model.Client;
+using Synapse;
+using UI.Views;
 
-namespace Macli.Pages
+namespace UI.Pages
 {
     public sealed partial class Rooms
     {
@@ -39,7 +37,7 @@ namespace Macli.Pages
                 ViewModel.SelectedRoom = ViewModel.Rooms.First();
 
             ThreadPoolTimer.CreateTimer(timer => ScrollToBottom(), TimeSpan.FromSeconds(0.5));
-            refreshTimer = ThreadPoolTimer.CreatePeriodicTimer(RefreshTimerElapsedHandler, TimeSpan.FromSeconds(1)); 
+            refreshTimer = ThreadPoolTimer.CreatePeriodicTimer(RefreshTimerElapsedHandler, TimeSpan.FromSeconds(5)); 
         }
 
         private async void ScrollToBottom()
@@ -69,6 +67,7 @@ namespace Macli.Pages
                     else
                         ViewModel.Rooms.Add(room); 
                 }
+                // TODO: Only scroll when a new message arrives in the selected room
                 scroller?.ChangeView(0, scroller.ScrollableHeight, 1);
             });
         }

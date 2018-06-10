@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace Macli.Extensions
+namespace UI.Extensions
 {
     public static class GuiExtensions
     {

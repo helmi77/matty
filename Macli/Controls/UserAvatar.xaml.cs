@@ -1,9 +1,8 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Macli.Synapse;
-using Macli.Views.Models;
+using Synapse;
 
-namespace Macli.Controls
+namespace UI.Controls
 {
     public sealed partial class UserAvatar : UserControl
     {

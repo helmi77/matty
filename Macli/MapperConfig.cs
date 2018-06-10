@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using Macli.Synapse;
-using Macli.Synapse.DTO;
-using Macli.Views;
-using Macli.Views.Models;
-using Profile = Macli.Views.Models.Profile;
-using Room = Macli.Synapse.DTO.Room;
+using Model.Client;
+using Model.Server;
+using Synapse;
+using UI.Views;
+using Profile = Model.Client.Profile;
+using Room = Model.Server.Room;
 
-namespace Macli
+namespace UI
 {
     static class MapperConfig
     {
@@ -32,6 +32,7 @@ namespace Macli
                     .ForMember(dst => dst.Url, opts => opts.MapFrom(src => src.Content.Url))
                     .ForMember(dst => dst.IsFollowup, opts => opts.MapFrom(src => src.IsFollowup))
                     .ForMember(dst => dst.IsLastFollowup, opts => opts.MapFrom(src => src.IsLastFollowup))
+                    .ForMember(dst => dst.IsMine, opts => opts.MapFrom(src => src.IsMine))
                     .ForMember(dst => dst.MessageType, opts => opts.MapFrom(src => src.Content.Type))
                     .ForPath(dst => dst.Image.Height, opts => opts.MapFrom(src => src.Content.Height))
                     .ForPath(dst => dst.Image.Width, opts => opts.MapFrom(src => src.Content.Width))
@@ -41,7 +42,7 @@ namespace Macli
                         opts => opts.MapFrom(src => DateTimeOffset.FromUnixTimeMilliseconds(src.Timestamp)))
                     .ForAllOtherMembers(mem => mem.Ignore());
 
-                cfg.CreateMap<Room, Views.Models.Room>()
+                cfg.CreateMap<Model.Server.Room, Model.Client.Room>()
                     .ForMember(dst => dst.Messages,
                         opts => opts.MapFrom(src => src.History.Events.Where(e => e.Type.Equals("m.room.message"))))
                     .ForMember(dst => dst.Name, opts => opts.ResolveUsing(ResolveRoomName))

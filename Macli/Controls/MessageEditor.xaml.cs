@@ -8,9 +8,9 @@ using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Macli.Synapse;
+using Synapse;
 
-namespace Macli.Controls
+namespace UI.Controls
 {
     public sealed partial class MessageEditor : UserControl
     {

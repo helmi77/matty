@@ -1,9 +1,9 @@
-﻿using Macli.Pages;
-using Macli.Storage;
-using Macli.Synapse;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
+using Storage;
+using Synapse;
+using UI.Pages;
 
-namespace Macli
+namespace UI
 {
     public sealed partial class MainPage : Page
     {

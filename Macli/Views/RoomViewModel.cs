@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using Macli.Views.Models;
+using Model;
+using Model.Client;
 
-namespace Macli.Views
+namespace UI.Views
 {
     public class RoomViewModel : BindableBase
     {

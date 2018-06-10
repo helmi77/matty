@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Macli.Synapse;
-using Macli.Views.Models;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using Model.Client;
+using Synapse;
 
-namespace Macli.Controls
+namespace UI.Controls
 {
     public sealed partial class MessageBubble : UserControl
     {

@@ -1,12 +1,12 @@
-﻿using Macli.Synapse;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Macli.Views;
+using Synapse;
+using UI.Views;
 
-namespace Macli.Pages
+namespace UI.Pages
 {
     public sealed partial class Login : Page
     {
@@ -33,7 +33,7 @@ namespace Macli.Pages
 
         private async Task LoginAsync()
         {
-            await SynapseClient.Instance.LoginAsync(ViewModel);
+            await SynapseClient.Instance.LoginAsync(ViewModel.Username, ViewModel.Password, ViewModel.HomeserverUrl);
             LoggedIn?.Invoke(this, EventArgs.Empty);
         }
     }
