@@ -16,7 +16,7 @@ namespace Macli.Synapse
             profileCache = new Dictionary<string, Profile>();
         }
 
-        public async Task<string> GetDisplayName(string userId)
+        public async Task<string> GetDisplayNameAsync(string userId)
         {
             Profile profile = await LookupAsync(userId);
             return profile?.DisplayName;

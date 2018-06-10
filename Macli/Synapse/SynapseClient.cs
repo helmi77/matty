@@ -26,6 +26,8 @@ namespace Macli.Synapse
         public UserManager UserManager { get; set; }
         public string EndpointUrl { get; set; }
 
+        private string nextBatch;
+
         private SynapseClient()
         {
             UserManager = new UserManager();
@@ -54,6 +56,7 @@ namespace Macli.Synapse
         {
             var syncState = await SynapseAPI.SyncAsync(User.AccessToken);
             IEnumerable<Room> rooms = syncState.JoinedRooms.Values;
+            nextBatch = syncState.NextBatch;
 
             var messageProcessor = new SequenceProcessor<RoomEvent>();
             messageProcessor.DefineSequence("FollowupMessages", new FollowupComparer());
@@ -63,7 +66,7 @@ namespace Macli.Synapse
             var roomProcessor = new SequenceProcessor<Room>();
             roomProcessor.AddRule(r => messageProcessor.Process(r.History.Events));
             roomProcessor.Process(rooms.ToList());
-
+            
             IEnumerable<Views.Models.Room> result = Mapper.Map<IEnumerable<Room>, IEnumerable<Views.Models.Room>>(rooms);
             return result.Zip(syncState.JoinedRooms.Keys, (room, id) =>
             {
@@ -103,6 +106,34 @@ namespace Macli.Synapse
                 return await SynapseAPI.UploadFileAsync(User.AccessToken, file.Name, stream.ContentType,
                     stream.AsStreamForRead());
             }
+        }
+
+        public async Task<string> GetDisplayName(string userId)
+        {
+            return await UserManager.GetDisplayNameAsync(userId);
+        }
+
+        public async Task<IEnumerable<Views.Models.Room>> SynchronizeAsync()
+        {
+            var syncState = await SynapseAPI.SyncAsync(User.AccessToken, nextBatch);
+            IEnumerable<Room> rooms = syncState.JoinedRooms.Values;
+            nextBatch = syncState.NextBatch;
+
+            var messageProcessor = new SequenceProcessor<RoomEvent>();
+            messageProcessor.DefineSequence("FollowupMessages", new FollowupComparer());
+            messageProcessor.AddSequenceRule("FollowupMessages", sequence => sequence.Tail.ForEach(item => item.IsFollowup = true));
+            messageProcessor.AddSequenceRule("FollowupMessages", sequence => sequence.Last.IsLastFollowup = true);
+
+            var roomProcessor = new SequenceProcessor<Room>();
+            roomProcessor.AddRule(r => messageProcessor.Process(r.History.Events));
+            roomProcessor.Process(rooms.ToList());
+
+            IEnumerable<Views.Models.Room> result = Mapper.Map<IEnumerable<Room>, IEnumerable<Views.Models.Room>>(rooms);
+            return result.Zip(syncState.JoinedRooms.Keys, (room, id) =>
+            {
+                room.ID = id;
+                return room;
+            });
         }
     }
 }

@@ -38,10 +38,12 @@ namespace Macli.Synapse
             return result.Data;
         }
 
-        public static async Task<SyncState> SyncAsync(string accessToken)
+        public static async Task<SyncState> SyncAsync(string accessToken, string since = null)
         {
             var request = new RestRequest("sync", Method.GET) { RequestFormat = DataFormat.Json };
             request.AddQueryParameter("access_token", accessToken);
+            if (!string.IsNullOrEmpty(since))
+                request.AddQueryParameter("since", since);
 
             var result = await client.ExecuteTaskAsync<SyncState>(request);
             return result.Data;

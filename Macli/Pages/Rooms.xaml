@@ -18,7 +18,8 @@
         <converters:BoolToVisibilityConverter x:Key="IsFollowupConverter" />
     </Page.Resources>
 
-    <uwpcontrols:MasterDetailsView ItemsSource="{x:Bind ViewModel.Rooms, Mode=OneWay}"
+    <uwpcontrols:MasterDetailsView x:Name="MasterDetails"
+                                   ItemsSource="{x:Bind ViewModel.Rooms, Mode=TwoWay}"
                                    BorderBrush="LightGray"
                                    HorizontalAlignment="Stretch"
                                    HorizontalContentAlignment="Stretch"

@@ -21,18 +21,7 @@ namespace Macli.Views.Models
 
         public string MessageType { get; set; }
 
-        public string Caption
-        {
-            get
-            {
-                var sender = Sender.Substring(1, Sender.IndexOf(':') - 1);
-                var caption = string.Empty;
-                if (!IsMine)
-                    caption = $"{sender} • ";
-                caption += Timestamp.Humanize();
-                return caption;
-            }
-        }
+        public string Age => Timestamp.Humanize();
     }
 
     public class Picture

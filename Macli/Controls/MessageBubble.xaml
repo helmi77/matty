@@ -31,17 +31,18 @@
                 <controls:MarkdownTextBlock Text="{x:Bind Message.Text}"
                                             Padding="0" Margin="0"
                                             LinkClicked="Markdown_LinkClicked"
+                                            ImageClicked="Markdown_ImageClicked"
                                             VerticalContentAlignment="Center"
                                             FlowDirection="LeftToRight"
-                                            HorizontalContentAlignment="Left" 
-                                            ImageResolving="OnImageResolving"
+                                            HorizontalContentAlignment="Left"
                                             ImageStretch="None" />
             </Border>
-            <TextBlock RelativePanel.Below="MessageBorder"
+            <TextBlock x:Name="CaptionTextBlock" 
+                       RelativePanel.Below="MessageBorder"
                        RelativePanel.AlignLeftWithPanel="True"
                        Foreground="Gray"
                        VerticalAlignment="Center" 
-                       Text="{x:Bind Message.Caption}"
+                       Text="{x:Bind Caption, Mode=OneWay}"
                        Style="{StaticResource CaptionTextBlockStyle}"
                        Visibility="{x:Bind Message.IsLastFollowup, Converter={StaticResource IsFollowupConverter}}" />
         </RelativePanel>
