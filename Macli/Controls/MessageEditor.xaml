@@ -44,6 +44,7 @@
                      VerticalContentAlignment="Top"
                      KeyDown="Editor_OnKeyDown"
                      TextChanged="Message_TextChanged"
-                     IsSpellCheckEnabled="False" />
+                     IsSpellCheckEnabled="False"
+                     AcceptsReturn="False" />
     </Grid>
 </UserControl>

@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,7 +21,7 @@ namespace Macli.Controls
         }
 
         public event EventHandler<RoutedEventArgs> SendClicked;
-        public event EventHandler<KeyRoutedEventArgs> KeyPressed;
+        public event EventHandler<KeyRoutedEventArgs> EnterPressed;
 
         public static readonly DependencyProperty MessageProperty =
             DependencyProperty.Register(
@@ -72,7 +74,22 @@ namespace Macli.Controls
 
         private void Editor_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
-            KeyPressed?.Invoke(sender, e);
+            bool shiftDown = CoreWindow.GetForCurrentThread()
+                .GetKeyState(VirtualKey.Shift)
+                .HasFlag(CoreVirtualKeyStates.Down);
+
+            if (e.Key == VirtualKey.Enter)
+            {
+                if (shiftDown)
+                {
+                    Message += "\n";
+                    Editor.Document.Selection.SetRange(Message.Length, Message.Length);
+                }
+                else
+                    EnterPressed?.Invoke(sender, e);
+
+                e.Handled = true;
+            }
         }
 
         private async void SendFile_OnClick(object sender, RoutedEventArgs e)

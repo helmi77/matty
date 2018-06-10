@@ -55,7 +55,7 @@ namespace Macli.Synapse
         {
             if (room == null || string.IsNullOrEmpty(room.NewMessage)) return;
             Debug.WriteLine($"Sending {room.NewMessage} in {room.ID}");
-            await SynapseAPI.SendMessageAsync(User.AccessToken, room.ID, room.NewMessage);
+            await SynapseAPI.SendMessageAsync(User.AccessToken, room.ID, room.NewMessage.Replace("\r", "  \n"));
         }
 
         public string GetPreviewUrl(string mxcUrl, int width, int height)

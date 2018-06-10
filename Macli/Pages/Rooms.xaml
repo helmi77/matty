@@ -9,7 +9,7 @@
     xmlns:controls="using:Macli.Controls"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded" Unloaded="Page_OnUnloaded">
 
     <Page.Resources>
         <converters:BoolToObjectConverter x:Key="MessageAlignConverter" TrueValue="Right" FalseValue="Left" />
@@ -19,6 +19,7 @@
     </Page.Resources>
 
     <uwpcontrols:MasterDetailsView x:Name="MasterDetails"
+                                   SelectionChanged="Room_OnSelectionChanged"
                                    ItemsSource="{x:Bind ViewModel.Rooms, Mode=TwoWay}"
                                    BorderBrush="LightGray"
                                    HorizontalAlignment="Stretch"
@@ -43,7 +44,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" MinHeight="100" />
                     </Grid.RowDefinitions>
-                    <ScrollViewer x:Name="Scroller" Grid.Row="0" Background="#eceff1">
+                    <ScrollViewer x:Name="Scroller" Grid.Row="0" Background="#eceff1" Loaded="Scroller_Loaded">
                         <ItemsControl ItemsSource="{x:Bind Messages}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="models:Message">
@@ -67,7 +68,7 @@
                                             VerticalAlignment="Stretch" 
                                             Message="{x:Bind NewMessage, Mode=TwoWay}" 
                                             SendClicked="SendButton_OnClick"
-                                            KeyPressed="Editor_OnKeyDown" />
+                                            EnterPressed="Editor_EnterPressed" />
                 </Grid>
             </DataTemplate>
         </uwpcontrols:MasterDetailsView.DetailsTemplate>
