@@ -6,6 +6,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Storage;
+using Synapse;
+using UI.Extensions;
 
 namespace UI.Pages
 {
@@ -14,24 +16,11 @@ namespace UI.Pages
     /// </summary>
     public sealed partial class Overview
     {
+        private Frame rootFrame;
+
         public Overview()
         {
             InitializeComponent();
-        }
-
-        private void NavigationView_Loaded(object sender, RoutedEventArgs e)
-        {
-            ContentFrame.Navigated += On_Navigated;
-            // Set the initial SelectedItem 
-            foreach (NavigationViewItemBase item in NavView.MenuItems)
-            {
-                if (item is NavigationViewItem && item.Tag.ToString() == "rooms")
-                {
-                    NavView.SelectedItem = item;
-                    break;
-                }
-            }
-            ContentFrame.Navigate(typeof(Rooms));
         }
 
         private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -57,13 +46,19 @@ namespace UI.Pages
                     break;
                 case "logout":
                     AppStorage.ClearUser();
-                    var overviewPage = NavView.Parent as Overview;
-                    var rootFrame = overviewPage.Parent as Frame;
+                    rootFrame = this.FindParent<Frame>();
                     rootFrame.Navigate(typeof(Login));
+                    var loginView = rootFrame.Content as Login;
+                    loginView.LoggedIn += LoggedIn;
                     break;
             }
         }
-
+ 
+        private void LoggedIn(object sender, System.EventArgs e)
+        {
+            AppStorage.SaveUser(SynapseClient.Instance.User);
+            rootFrame.Navigate(typeof(Overview));
+        }
 
         private void NavigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
         {
@@ -122,6 +117,23 @@ namespace UI.Pages
                     }
                 }
             }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ContentFrame.Navigated += On_Navigated;
+            // Set the initial SelectedItem 
+            foreach (NavigationViewItemBase item in NavView.MenuItems)
+            {
+                if (item is NavigationViewItem && item.Tag.ToString() == "rooms")
+                {
+                    NavView.SelectedItem = item;
+                    break;
+                }
+            }
+            ContentFrame.Navigate(typeof(Rooms));
+
+            base.OnNavigatedTo(e);
         }
     }
 }

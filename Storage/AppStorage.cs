@@ -1,11 +1,14 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp.Helpers;
 using Model;
 using Model.Server;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace Storage
 {
@@ -91,6 +94,45 @@ namespace Storage
             }
 
             return filename;
+        }
+
+        public static async Task<IEnumerable<Model.Client.Room>> LoadRooms()
+        {
+            StorageFolder roomsFolder = await CacheFolder.CreateFolderAsync("Rooms", CreationCollisionOption.OpenIfExists);
+            if (await roomsFolder.FileExistsAsync("rooms.json"))
+            {
+                var file = await roomsFolder.GetFileAsync("rooms.json");
+                using (var stream = await file.OpenStreamForReadAsync())
+                using (StreamReader streamReader = new StreamReader(stream))
+                using (JsonReader reader = new JsonTextReader(streamReader))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    return serializer.Deserialize<IEnumerable<Model.Client.Room>>(reader);
+                }
+            }
+
+            return Enumerable.Empty<Model.Client.Room>();
+        }
+
+        public static async void SaveRooms(IEnumerable<Model.Client.Room> rooms)
+        { 
+            try
+            {
+                StorageFolder roomsFolder = await CacheFolder.CreateFolderAsync("Rooms", CreationCollisionOption.OpenIfExists); 
+                StorageFile roomsFile = await roomsFolder.CreateFileAsync("rooms.json", CreationCollisionOption.ReplaceExisting);
+                using (var stream = await roomsFile.OpenStreamForWriteAsync())
+                using (StreamWriter streamWriter = new StreamWriter(stream))
+                using (JsonWriter writer = new JsonTextWriter(streamWriter))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(writer, rooms);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.WriteLine($"Failed to write rooms.json file");
+            }
         }
 
         public static void ClearUser()

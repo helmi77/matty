@@ -9,7 +9,7 @@
     xmlns:controls="using:UI.Controls"
     xmlns:client="using:Model.Client"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded" Unloaded="Page_OnUnloaded">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Unloaded="Page_OnUnloaded">
 
     <Page.Resources>
         <converters:BoolToObjectConverter x:Key="MessageAlignConverter" TrueValue="Right" FalseValue="Left" />

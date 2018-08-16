@@ -10,6 +10,8 @@ using Windows.UI.Xaml.Input;
 using Model.Client;
 using Synapse;
 using UI.Views;
+using Windows.UI.Xaml.Navigation;
+using Storage;
 
 namespace UI.Pages
 {
@@ -25,21 +27,7 @@ namespace UI.Pages
             InitializeComponent();
             ViewModel = new RoomViewModel();
         }
-
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.Rooms = new ObservableCollection<Room>();
-            var rooms = await SynapseClient.Instance.SynchronizeAsync();
-            foreach (var room in rooms)
-                ViewModel.Rooms.Add(room);
-
-            if (ViewModel.Rooms.Count > 0)
-                ViewModel.SelectedRoom = ViewModel.Rooms.First();
-
-            ThreadPoolTimer.CreateTimer(timer => ScrollToBottom(), TimeSpan.FromSeconds(0.5));
-            refreshTimer = ThreadPoolTimer.CreatePeriodicTimer(RefreshTimerElapsedHandler, TimeSpan.FromSeconds(5)); 
-        }
-
+ 
         private async void ScrollToBottom()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
@@ -85,6 +73,26 @@ namespace UI.Pages
         private async Task SendMessage()
         {
             await SynapseClient.Instance.SendMessageAsync(ViewModel.SelectedRoom);
+        }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ViewModel.Rooms = new ObservableCollection<Room>();
+            var rooms = await AppStorage.LoadRooms();
+            if (rooms.Count() <= 0)
+            {
+                rooms = await SynapseClient.Instance.SynchronizeAsync();
+                AppStorage.SaveRooms(rooms);
+            }
+
+            foreach (var room in rooms)
+                ViewModel.Rooms.Add(room);
+
+            if (ViewModel.Rooms.Count > 0)
+                ViewModel.SelectedRoom = ViewModel.Rooms.First();
+
+            ThreadPoolTimer.CreateTimer(timer => ScrollToBottom(), TimeSpan.FromSeconds(0.5));
+            refreshTimer = ThreadPoolTimer.CreatePeriodicTimer(RefreshTimerElapsedHandler, TimeSpan.FromSeconds(5));
         }
 
         private void Scroller_Loaded(object sender, RoutedEventArgs e) => scroller = sender as ScrollViewer; 

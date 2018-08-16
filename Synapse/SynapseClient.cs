@@ -97,13 +97,13 @@ namespace Synapse
             nextBatch = syncState.NextBatch;
 
             var messageProcessor = new SequenceProcessor<RoomEvent>();
-            messageProcessor.AddRule(e => e.IsMine = e.Sender.Equals(User.ID));
+            messageProcessor.ModifyItems(e => e.IsMine = e.Sender.Equals(User.ID));
             messageProcessor.DefineSequence("FollowupMessages", new FollowupComparer());
-            messageProcessor.AddSequenceRule("FollowupMessages", sequence => sequence.Tail.ForEach(item => item.IsFollowup = true));
-            messageProcessor.AddSequenceRule("FollowupMessages", sequence => sequence.Last.IsLastFollowup = true);
+            messageProcessor.ModifySequence("FollowupMessages", sequence => sequence.Tail.ForEach(item => item.IsFollowup = true));
+            messageProcessor.ModifySequence("FollowupMessages", sequence => sequence.Last.IsLastFollowup = true);
 
             var roomProcessor = new SequenceProcessor<ServerRoom>();
-            roomProcessor.AddRule(r => messageProcessor.Process(r.History.Events));
+            roomProcessor.ModifyItems(r => messageProcessor.Process(r.History.Events));
             roomProcessor.Process(rooms.ToList());
 
             IEnumerable<ClientRoom> result = Mapper.Map<IEnumerable<ServerRoom>, IEnumerable<ClientRoom>>(rooms);

@@ -9,7 +9,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <NavigationView x:Name="NavView"
-                    Loaded="NavigationView_Loaded"
                     ItemInvoked="NavigationView_ItemInvoked"
                     BackRequested="NavigationView_BackRequested" 
                     AlwaysShowHeader="False">

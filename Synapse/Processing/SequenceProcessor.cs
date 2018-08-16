@@ -15,12 +15,12 @@ namespace Synapse.Processing
             Sequences = new Dictionary<string, Sequence<T>>();
         }
 
-        public void AddRule(Action<T> rule)
+        public void ModifyItems(Action<T> rule)
         {
             Rules.Add(rule);
         }
 
-        public void AddSequenceRule(string sequenceName, Action<Subsequence<T>> rule)
+        public void ModifySequence(string sequenceName, Action<Subsequence<T>> rule)
         {
             Sequences[sequenceName].AddRule(rule);
         }
