@@ -51,12 +51,14 @@ namespace UI.Pages
                     var matching = ViewModel.Rooms.FirstOrDefault(r => r.ID == room.ID);
                     if (matching != null)
                         foreach (var message in room.Messages)
+                        {
                             matching.Messages.Add(message);
+                            if (ViewModel.SelectedRoom.ID == matching.ID)
+                                scroller?.ChangeView(0, scroller.ScrollableHeight, 1);
+                        }
                     else
                         ViewModel.Rooms.Add(room); 
                 }
-                // TODO: Only scroll when a new message arrives in the selected room
-                scroller?.ChangeView(0, scroller.ScrollableHeight, 1);
             });
         }
 
@@ -93,6 +95,12 @@ namespace UI.Pages
 
             ThreadPoolTimer.CreateTimer(timer => ScrollToBottom(), TimeSpan.FromSeconds(0.5));
             refreshTimer = ThreadPoolTimer.CreatePeriodicTimer(RefreshTimerElapsedHandler, TimeSpan.FromSeconds(5));
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            refreshTimer?.Cancel();
+            base.OnNavigatedFrom(e);
         }
 
         private void Scroller_Loaded(object sender, RoutedEventArgs e) => scroller = sender as ScrollViewer; 
