@@ -55,7 +55,7 @@ namespace UI.Controls
             {
                 messageBubble.lockChangeExecution = true;
 
-                if (message.MessageType == "m.image")
+                if (message.MessageType == "m.image" && !message.Text.Contains("!["))
                 {
                     string url = SynapseClient.Instance.GetPreviewUrl(message.Image);
                     message.Text = $"![{message.Text}]({url})";
