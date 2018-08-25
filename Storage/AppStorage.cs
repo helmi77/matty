@@ -96,6 +96,9 @@ namespace Storage
             return filename;
         }
 
+        public static string LoadLastTimestamp() => LocalSettings.Values["SyncTimestamp"] as string; 
+        public static void SaveTimestamp(string timestamp) => LocalSettings.Values["SyncTimestamp"] = timestamp;
+
         public static async Task<IEnumerable<Model.Client.Room>> LoadRooms()
         {
             StorageFolder roomsFolder = await CacheFolder.CreateFolderAsync("Rooms", CreationCollisionOption.OpenIfExists);

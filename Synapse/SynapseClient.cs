@@ -92,9 +92,13 @@ namespace Synapse
 
         public async Task<IEnumerable<ClientRoom>> SynchronizeAsync()
         {
+            if (string.IsNullOrEmpty(nextBatch))
+                nextBatch = AppStorage.LoadLastTimestamp();
+
             var syncState = await SynapseAPI.SyncAsync(User.AccessToken, nextBatch);
             IEnumerable<ServerRoom> rooms = syncState.JoinedRooms.Values;
             nextBatch = syncState.NextBatch;
+            AppStorage.SaveTimestamp(nextBatch); 
 
             var messageProcessor = new SequenceProcessor<RoomEvent>();
             messageProcessor.ModifyItems(e => e.IsMine = e.Sender.Equals(User.ID));
