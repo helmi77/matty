@@ -14,7 +14,9 @@
     <Page.Resources>
         <converters:BoolToObjectConverter x:Key="MessageAlignConverter" TrueValue="Right" FalseValue="Left" />
         <converters:BoolToObjectConverter x:Key="MessageFlowConverter" TrueValue="RightToLeft" FalseValue="LeftToRight" />
-        <converters:BoolToObjectConverter x:Key="FollowupLayoutConverter" TrueValue="58,0,58,6" FalseValue="10,6,10,6" />
+        <converters:BoolToObjectConverter x:Key="FollowupLayoutConverter" TrueValue="12,6,0,2" FalseValue="0,6,0,2" />
+        <converters:BoolToObjectConverter x:Key="MineLayoutConverter" TrueValue="80,0,-20,0" FalseValue="0,0,0,0" />
+        <converters:BoolToObjectConverter x:Key="AvatarWidthConverter" FalseValue="50" TrueValue="0" />
         <converters:BoolToVisibilityConverter x:Key="IsFollowupConverter" />
     </Page.Resources>
 
@@ -45,20 +47,25 @@
                         <RowDefinition Height="Auto" MinHeight="100" />
                     </Grid.RowDefinitions>
                     <ScrollViewer x:Name="Scroller" Grid.Row="0" Background="#eceff1" Loaded="Scroller_Loaded">
-                        <ItemsControl ItemsSource="{x:Bind Messages}">
+                        <ItemsControl ItemsSource="{x:Bind Messages}" MaxWidth="600" HorizontalAlignment="Center" HorizontalContentAlignment="Stretch">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="client:Message">
-                                    <RelativePanel Margin="{x:Bind IsFollowup, Converter={StaticResource FollowupLayoutConverter}}"
-                                                   FlowDirection="{x:Bind IsMine, Converter={StaticResource MessageFlowConverter}}"
-                                                   HorizontalAlignment="{x:Bind IsMine, Converter={StaticResource MessageAlignConverter}}">
+                                    <Grid HorizontalAlignment="Stretch" 
+                                          FlowDirection="{x:Bind IsMine, Converter={StaticResource MessageFlowConverter}}"
+                                          Margin="{x:Bind IsMine, Converter={StaticResource MineLayoutConverter}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="{x:Bind IsMine, Converter={StaticResource AvatarWidthConverter}}" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
                                         <controls:UserAvatar x:Name="ProfilePicture"
+                                                             Grid.Column="0"
+                                                             VerticalAlignment="Top"
+                                                             Margin="0,6,0,0"
                                                              UserID="{x:Bind Sender}"
-                                                             RelativePanel.AlignVerticalCenterWithPanel="False"
-                                                             RelativePanel.AlignLeftWithPanel="True"
                                                              ToolTipService.ToolTip="{x:Bind Sender}"
                                                              Visibility="{x:Bind ShowDetails, Converter={StaticResource IsFollowupConverter}}" />
-                                        <controls:MessageBubble RelativePanel.RightOf="ProfilePicture" Message="{x:Bind Mode=TwoWay}" />
-                                    </RelativePanel>
+                                        <controls:MessageBubble Grid.Column="1" Message="{x:Bind Mode=TwoWay}" Margin="{x:Bind IsFollowup, Converter={StaticResource FollowupLayoutConverter}}" />
+                                    </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

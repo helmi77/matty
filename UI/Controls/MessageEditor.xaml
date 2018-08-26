@@ -36,7 +36,7 @@
         <RichEditBox x:Name="Editor"
                      Grid.Row="1" 
                      Background="White"
-                     PlaceholderText="Type your message here"
+                     PlaceholderText="Type a message"
                      TextWrapping="Wrap"
                      MinHeight="50"
                      BorderThickness="0" 

@@ -15,17 +15,24 @@
         <converters:BoolToVisibilityConverter x:Key="IsFollowupConverter" />
     </UserControl.Resources>
 
-    <RelativePanel>
-        <Path RelativePanel.AlignLeftWithPanel="True"
-              x:Name="BubbleArrow" 
+    <Grid HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Path x:Name="BubbleArrow" 
+              Grid.Column="0"
               Data="M 0,0 l 15,0 0,15 Z" 
               Margin="0,0,-3,0"
               Visibility="{x:Bind Message.ShowDetails, Converter={StaticResource IsFollowupConverter}}"
               Fill="{x:Bind Message.IsMine, Converter={StaticResource MessageBrushConverter}}" />
-        <RelativePanel RelativePanel.RightOf="BubbleArrow">
+        <RelativePanel Grid.Column="1">
             <Border x:Name="MessageBorder"
                     CornerRadius="5"
-                    Padding="12"
+                    HorizontalAlignment="Stretch"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
+                    Padding="12" 
                     BorderThickness="0"
                     Background="{x:Bind Message.IsMine, Converter={StaticResource MessageBrushConverter}}">
                 <controls:MarkdownTextBlock Text="{x:Bind Message.Text}"
@@ -45,5 +52,5 @@
                        Style="{StaticResource CaptionTextBlockStyle}"
                        Visibility="{x:Bind Message.IsLastFollowup, Converter={StaticResource IsFollowupConverter}}" />
         </RelativePanel>
-    </RelativePanel>
+    </Grid>
 </UserControl>
